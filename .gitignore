@@ -13,3 +13,5 @@ yarn-error.log
 /.idea/
 /public/css/
 /public/js/
+/.env.testing
+/.php_cs.cache
