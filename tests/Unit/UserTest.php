@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * @internal
  *
+ *
  * @coversNothing
  */
 class UserTest extends TestCase
