@@ -4,7 +4,7 @@
     <form method="POST" class="form-auth card bg-white" action="{{ route('login') }}">
         @csrf
         <div class="text-center card-header">
-            <img class="mb-4" src="{{ asset('img/bootstrap-solid.svg') }}" alt="" width="50" height="50">
+            <img class="mb-4" src="{{ asset('images/bootstrap-solid.svg') }}" alt="" width="50" height="50">
             <h3 class="font-weight-normal">Login to your account</h3>
         </div>
         <div class="card-body">
@@ -53,7 +53,7 @@
             <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
 
             @if (Route::has('register'))
-                <p class="mt-3 text-center">Don&rsquo;t have an account?
+                <p class="mt-3 text-center">Don&rsquo;t have an account&#63;
                     <a href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>

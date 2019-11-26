@@ -6,11 +6,13 @@
 
 import "./bootstrap";
 import Vue from "vue";
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
+import Va from 'vue-atlas'
 
 window.Vue = Vue;
 
 Vue.use(BootstrapVue);
+Vue.use(Va);
 
 /**
  * The following block of code may be used to automatically register your

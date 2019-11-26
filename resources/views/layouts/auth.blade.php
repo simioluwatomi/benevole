@@ -24,7 +24,7 @@
             height: 100%;
         }
 
-        body {
+        main {
             display: -ms-flexbox;
             display: flex;
             -ms-flex-align: center;
@@ -42,7 +42,14 @@
     </style>
 </head>
 <body class="bg-gradient-lighter">
+<main id="app" class="h-100">
+
     @yield('content')
+</main>
+    <!-- Scripts -->
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
 
