@@ -25,5 +25,4 @@
 </script>
 
 <style scoped lang="scss">
-    @import "~vue-atlas/src/variables";
 </style>
