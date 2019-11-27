@@ -23,13 +23,14 @@
                    autocomplete="email"
                    placeholder="Enter account email address"
                    required
-                   autofocus>
+                   autofocus
+            >
             @error('email')
             @include('partials.invalid-feedback')
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">{{ __('Send Password Reset Link') }}</button>
+        <button type="submit" class="btn btn-twitter btn-block">{{ __('Send Password Reset Link') }}</button>
 
         @if (Route::has('login'))
             <p class="mt-3 text-center">Remember your password&#63;

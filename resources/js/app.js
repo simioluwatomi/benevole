@@ -5,6 +5,8 @@
  */
 
 import "./bootstrap";
+import "boomerang-ui-kit/assets/vendor/bootstrap-select/js/bootstrap-select.min"
+import "boomerang-ui-kit/assets/js/theme"
 import Vue from "vue";
 import BootstrapVue from 'bootstrap-vue';
 import Va from 'vue-atlas'

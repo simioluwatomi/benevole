@@ -20,7 +20,8 @@
                        autocomplete="email"
                        placeholder="Enter email"
                        required
-                       autofocus>
+                       autofocus
+                >
                 @error('email')
                 @include('partials.invalid-feedback')
                 @enderror
@@ -34,7 +35,8 @@
                        class="form-control @error('password') is-invalid @enderror"
                        placeholder="Enter Password"
                        required
-                       autocomplete="new-password">
+                       autocomplete="new-password"
+                >
                 @error('password')
                 @include('partials.invalid-feedback')
                 @enderror
@@ -48,10 +50,8 @@
                        class="form-control @error('password') is-invalid @enderror"
                        placeholder="Re-enter Password"
                        required
-                       autocomplete="new-password">
-                @error('password')
-                @include('partials.invalid-feedback')
-                @enderror
+                       autocomplete="new-password"
+                >
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">{{ __('Reset Password') }}</button>

@@ -5,7 +5,7 @@
         @csrf
         <div class="text-center card-header">
             <img class="mb-4" src="{{ asset('images/bootstrap-solid.svg') }}" alt="" width="50" height="50">
-            <h3 class="font-weight-normal">Login to your account</h3>
+            <h3 class="font-weight-normal text-capitalize">Login to your account</h3>
         </div>
         <div class="card-body">
             <div class="form-group">
