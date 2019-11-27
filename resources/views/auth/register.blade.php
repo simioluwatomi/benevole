@@ -11,7 +11,7 @@
             <div class="form-group row">
                 <label for="userType" class="col-sm-3 col-form-label">I want to</label>
                 <div class="col-sm-9">
-                    <select class="selectpicker" title="Select user type" name="user_type">
+                    <select class="selectpicker" title="Select user type" name="user_type" required>
                         <option value="volunteer" {{ old('user_type') == 'volunteer' ? 'selected' : '' }}>Become a
                             volunteer
                         </option>
@@ -20,7 +20,9 @@
                         </option>
                     </select>
                     @error('user_type')
-                    @include('layouts.partials.invalid-feedback')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
             </div>
@@ -34,7 +36,6 @@
                            value="{{ old('username') }}"
                            placeholder="Enter username"
                            required
-                           autofocus
                     >
                     @error('username')
                     @include('partials.invalid-feedback')

@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Carbon\Carbon;
 use Tests\TestCase;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,7 +12,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @internal
- *
  *
  * @coversNothing
  */
@@ -30,6 +30,7 @@ class UserTest extends TestCase
         $this->telephone = $this->faker->e164PhoneNumber;
 
         $this->user = User::create([
+            'role_id'               => factory(Role::class)->create()->id,
             'username'              => 'johndoe',
             'email'                 => 'johndoe@example.com',
             'telephone'             => $this->telephone,
@@ -73,5 +74,11 @@ class UserTest extends TestCase
     public function a_user_has_a_telephone_verified_at()
     {
         $this->assertInstanceOf(Carbon::class, $this->user->telephone_verified_at);
+    }
+
+    /** @test */
+    public function a_user_has_a_role()
+    {
+        $this->assertInstanceOf(Role::class, $this->user->role);
     }
 }
