@@ -9,14 +9,14 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <label for="email">{{ __('E-mail Address') }}</label>
-                <input type="email"
+                <label for="email">{{ __('E-mail or Username') }}</label>
+                <input type="text"
                        id="email"
                        name="email"
                        class="form-control @error('email') is-invalid @enderror"
                        value="{{ old('email') }}"
                        autocomplete="email"
-                       placeholder="Enter email"
+                       placeholder="Enter email or username"
                        required
                        autofocus>
                 @error('email')
