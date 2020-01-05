@@ -1,8 +1,19 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en"/>
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Simi Oluwatomi">
 
@@ -11,45 +22,19 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap" rel="stylesheet">
-
     <!-- Styles -->
-    <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
-
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        main {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-align: center;
-            align-items: center;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-
-        .form-auth {
-            width: 100%;
-            max-width: 420px;
-            padding: 15px;
-            margin: auto;
-        }
-    </style>
+    <link href="{{ mix('css/index.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gradient-lighter">
-<main id="app" class="h-100">
+<body class="">
 
-    @yield('content')
-</main>
-    <!-- Scripts -->
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
+@yield('content')
+
+<!-- Scripts -->
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+
+@stack('scripts')
 </body>
 </html>
 

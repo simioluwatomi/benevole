@@ -1,64 +1,87 @@
 @extends('layouts.auth')
 
 @section('content')
-    <form method="POST" class="form-auth card bg-white" action="{{ route('login') }}">
-        @csrf
-        <div class="text-center card-header">
-            <img class="mb-4" src="{{ asset('images/bootstrap-solid.svg') }}" alt="" width="50" height="50">
-            <h3 class="font-weight-normal text-capitalize">Login to your account</h3>
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="email">{{ __('E-mail or Username') }}</label>
-                <input type="text"
-                       id="email"
-                       name="email"
-                       class="form-control @error('email') is-invalid @enderror"
-                       value="{{ old('email') }}"
-                       autocomplete="email"
-                       placeholder="Enter email or username"
-                       required
-                       autofocus>
-                @error('email')
-                @include('partials.invalid-feedback')
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password">{{ __('Password') }}</label>
-                <input type="password"
-                       id="password"
-                       name="password"
-                       class="form-control @error('password') is-invalid @enderror"
-                       placeholder="Enter Password"
-                       required
-                       autocomplete="current-password">
-                @error('password')
-                @include('partials.invalid-feedback')
-                @enderror
-            </div>
-            <div class="d-flex justify-content-between">
-                <div class="flex-fill custom-control custom-checkbox mb-3">
-                    <input type="checkbox"
-                           name="remember"
-                           id="remember" {{ old('remember') ? 'checked' : '' }}
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
+    <div class="page">
+        <div class="page-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-login mx-auto">
+                        <div class="text-center mb-6">
+                            <a href="{{ route('index') }}" class="text-dark">
+                                <h2 class="mt-0 mb-4">
+                                    {{ config('app.name', 'Laravel') }}
+                                </h2>
+                            </a>
+                        </div>
+                        <form class="card" action="{{ route('login') }}" method="POST">
+                            @csrf
+                            <div class="card-body p-6">
+                                <div class="card-title text-center text-uppercase">Login to your account</div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">{{ __('E-mail or Username') }}</label>
+                                    <input
+                                        name="email"
+                                        id="email"
+                                        type="email"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        placeholder="Enter email address"
+                                        autocomplete="email"
+                                        autofocus
+                                        required
+                                        value="{{ old('email') }}"
+                                        aria-describedby="emailHelp"
+                                    >
+                                    @error('email')
+                                    @include('layouts.partials.invalid-feedback')
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="form-label">
+                                        {{ __('Password') }}
+                                        <a href="{{ route('password.request') }}"
+                                           class="float-right">{{ __('Forgot Your Password?') }}</a>
+                                    </label>
+                                    <input name="password"
+                                           id="password"
+                                           type="password"
+                                           class="form-control @error('password') is-invalid @enderror"
+                                           required
+                                           autocomplete="current-password"
+                                           placeholder="Password"
+                                    >
+                                    @error('password')
+                                    @include('layouts.partials.invalid-feedback')
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="custom-control custom-checkbox" for="remember">
+                                        <input name="remember"
+                                               id="remember" {{ old('remember') ? 'checked' : '' }}
+                                               class="custom-control-input"
+                                               type="checkbox"
+                                        >
+                                        <span class="custom-control-label">
+                                            {{ __('Remember Me') }}
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        @if (Route::has('register'))
+                            <p class="mt-3 text-center text-muted">Don&rsquo;t have an account&#63;
+                                <a href="{{ route('register') }}">
+                                    {{ __('Register') }}
+                                </a>
+                            </p>
+                        @endif
+                    </div>
                 </div>
-                @if (Route::has('password.request'))
-                    <a class="flex-fill" href="{{ route('password.request') }}">
-                        {{ __('Forgot Password?') }}
-                    </a>
-                @endif
             </div>
-            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
-
-            @if (Route::has('register'))
-                <p class="mt-3 text-center">Don&rsquo;t have an account&#63;
-                    <a href="{{ route('register') }}">
-                        {{ __('Register') }}
-                    </a>
-                </p>
-            @endif
         </div>
-    </form>
+    </div>
 @endsection
