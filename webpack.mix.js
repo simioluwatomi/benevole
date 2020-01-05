@@ -13,8 +13,24 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/theme.scss', 'public/css')
+    .sass('resources/sass/index.scss', 'public/css')
+    .sass('resources/sass/main.scss', 'public/css')
+    .copyDirectory('node_modules/boomerang-ui-kit/assets/images', 'public/images')
+    .copy(['node_modules/boomerang-ui-kit/assets/css/theme.css'], 'public/css/boomerang.css')
     .extract()
     .browserSync('benevole.test')
-    .disableSuccessNotifications()
+    .disableNotifications()
     .version();
+
+// remove console.log statements from production builds
+if (mix.inProduction()) {
+    mix.options({
+        terser: {
+            terserOptions: {
+                compress: {
+                    drop_console: true
+                }
+            }
+        }
+    });
+}
