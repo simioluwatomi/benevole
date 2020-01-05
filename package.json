@@ -24,6 +24,7 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.23.7",
         "sass-loader": "7.*",
+        "tabler-ui": "0.0.34",
         "vue": "^2.6.10",
         "vue-atlas": "^2.1.0",
         "vue-template-compiler": "^2.6.10"
