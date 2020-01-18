@@ -27,7 +27,10 @@
 </head>
 <body class="">
 
-@yield('content')
+<div class="page" id="app">
+    @yield('content')
+</div>
+
 
 <!-- Scripts -->
 <script src="{{ mix('js/manifest.js') }}"></script>
