@@ -7,12 +7,12 @@
 import "./bootstrap";
 import Vue from "vue";
 import BootstrapVue from 'bootstrap-vue';
-import Va from 'vue-atlas'
+import { VaAlert } from 'vue-atlas/src/Alert';
 
 window.Vue = Vue;
 
 Vue.use(BootstrapVue);
-Vue.use(Va);
+Vue.use(VaAlert);
 
 /**
  * The following block of code may be used to automatically register your
