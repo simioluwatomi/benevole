@@ -1,4 +1,16 @@
-window._ = require('lodash');
+import axios from "axios";
+import jquery from "jquery";
+window.$ = window.jQuery = jquery;
+import popper from "popper.js";
+import "bootstrap";
+require('tabler-ui/dist/assets/js/vendors/chart.bundle.min.js');
+require('tabler-ui/dist/assets/js/vendors/circle-progress.min.js');
+require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-2.0.3.min.js');
+require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-de-merc.js');
+require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-world-mill.js');
+require('tabler-ui/dist/assets/js/vendors/jquery.sparkline.min.js');
+require('tabler-ui/dist/assets/js/vendors/jquery.tablesorter.min.js');
+require('tabler-ui/dist/assets/js/vendors/selectize.min.js');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -6,12 +18,7 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-} catch (e) {}
+window.Popper = popper;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -19,7 +26,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

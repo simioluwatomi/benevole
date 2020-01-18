@@ -11,8 +11,9 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.3.1",
-        "bootstrap-vue": "^2.1.0",
+        "boomerang-ui-kit": "github:simioluwatomi/boomerang-ui-kit#master",
+        "bootstrap": "^4.4.1",
+        "bootstrap-vue": "^2.2.0",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
@@ -21,11 +22,12 @@
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.23.7",
+        "sass": "^1.24.4",
         "sass-loader": "7.*",
-        "vue": "^2.6.10",
-        "vue-atlas": "^2.1.0",
-        "vue-template-compiler": "^2.6.10"
+        "tabler-ui": "0.0.34",
+        "vue": "^2.6.11",
+        "vue-atlas": "^2.1.8",
+        "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {}
 }
