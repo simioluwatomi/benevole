@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\VerifyEmailQueued;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,6 +78,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at'     => 'datetime',
         'telephone_verified_at' => 'datetime',
     ];
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(VerifyEmailQueued::class);
+    }
 
     /**
      * Get the role of this user.
