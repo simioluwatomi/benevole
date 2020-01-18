@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -42,6 +44,28 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $expiry = config('auth.verification.expire');
+
+        return back()->with('message', [
+            'type'  => 'success',
+            'title' => 'Registration successful',
+            'body'  => "An e-mail verification link has been sent to you. The link expires in {$expiry} minutes.",
+        ]);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -63,7 +87,7 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      *
-     * @return \App\Models\User
+     * @return User
      */
     protected function create(array $data)
     {
