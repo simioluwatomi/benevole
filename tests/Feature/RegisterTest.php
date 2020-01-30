@@ -6,9 +6,9 @@ use Tests\TestCase;
 use App\Models\User;
 use RolesTableSeeder;
 use Illuminate\Auth\Events\Registered;
+use App\Notifications\VerifyEmailQueued;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 
@@ -72,6 +72,6 @@ class RegisterTest extends TestCase
 
         (new SendEmailVerificationNotification())->handle(new Registered($user));
 
-        Notification::assertSentTo($user, VerifyEmail::class);
+        Notification::assertSentTo($user, VerifyEmailQueued::class);
     }
 }
