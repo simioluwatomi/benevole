@@ -15,7 +15,9 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
+        "brainmaestro/composer-git-hooks": "^2.8",
         "facade/ignition": "^1.4",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.4",
         "laravel/telescope": "^2.1",
         "laravel/ui": "^1.1",
@@ -31,6 +33,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "hooks": {
+            "pre-commit": [
+                "vendor/bin/php-cs-fixer fix --verbose --config=.php_cs"
+            ]
         }
     },
     "autoload": {
@@ -50,23 +57,30 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "cghooks": "vendor/bin/cghooks",
+        "ide-helper": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
             "@ide-helper"
         ],
-        "ide-helper": [
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "post-install-cmd": [
+            "App\\Utilities\\ComposerScripts::developmentMode",
+            "cghooks add --ignore-lock"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "App\\Utilities\\ComposerScripts::developmentMode",
+            "cghooks update"
         ]
     }
 }

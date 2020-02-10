@@ -12,7 +12,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * @internal
  *
- *
  * @coversNothing
  */
 class EmailVerificationTest extends TestCase
