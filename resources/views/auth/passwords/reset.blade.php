@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col col-login mx-auto">
                     <div class="text-center mb-6">
-                        <a href="{{ route('index') }}" class="text-dark">
+                        <a href="{{ route('opportunity.index') }}" class="text-dark">
                             <h2 class="mt-0 mb-4">
                                 {{ config('app.name', 'Laravel') }}
                             </h2>
@@ -63,7 +63,7 @@
                                 >
                             </div>
                             <button type="submit"
-                                    class="btn btn-primary btn-block"
+                                    class="btn btn-twitter btn-block"
                             >
                                 {{ __('Reset Password') }}
                             </button>
