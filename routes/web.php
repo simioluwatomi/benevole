@@ -11,7 +11,8 @@
 |
 */
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VolunteerOpportunityController;
 
-Route::get('/', [VolunteerOpportunityController::class, 'index'])->name('opportunity.index');
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/{user}/{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');

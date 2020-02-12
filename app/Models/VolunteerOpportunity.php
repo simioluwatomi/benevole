@@ -14,9 +14,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property string                          $title
  * @property string                          $description
  * @property string                          $slug
- * @property int                             $hours_per_week
- * @property \Illuminate\Support\Carbon      $start_date
- * @property \Illuminate\Support\Carbon      $end_date
+ * @property int                             $min_hours_per_week
+ * @property int                             $max_hours_per_week
+ * @property int                             $duration
  * @property null|\Illuminate\Support\Carbon $created_at
  * @property null|\Illuminate\Support\Carbon $updated_at
  * @property \App\Models\Category            $category
@@ -29,11 +29,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereEndDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereHoursPerWeek($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereMaxHoursPerWeek($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereMinHoursPerWeek($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereUserId($value)
@@ -53,20 +53,20 @@ class VolunteerOpportunity extends Model
         'title',
         'description',
         'slug',
-        'hours_per_week',
-        'start_date',
-        'end_date',
+        'min_hours_per_week',
+        'max_hours_per_week',
+        'duration',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Get the route key for the model.
      *
-     * @var array
+     * @return string
      */
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date'   => 'date',
-    ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * A volunteer opportunity is created by a user.

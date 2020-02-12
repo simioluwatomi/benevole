@@ -11,14 +11,10 @@ class VolunteerOpportunityController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View|string
      */
     public function index()
     {
-        $opportunities = VolunteerOpportunity::latest()->take(30)->get();
-        $categories = \DB::table('categories')->pluck('title');
-
-        return view('opportunity.index', compact('categories', 'opportunities'));
     }
 
     /**
@@ -51,9 +47,6 @@ class VolunteerOpportunityController extends Controller
      */
     public function show(User $user, VolunteerOpportunity $volunteerOpportunity)
     {
-        $volunteerOpportunity->load('category');
-
-        return view('opportunity.show', compact('user', 'volunteerOpportunity'));
     }
 
     /**

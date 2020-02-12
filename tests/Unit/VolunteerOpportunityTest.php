@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Category;
@@ -34,13 +33,13 @@ class VolunteerOpportunityTest extends TestCase
         parent::setUp();
 
         $this->opportunity = VolunteerOpportunity::create([
-            'user_id'        => factory(User::class)->create()->id,
-            'category_id'    => factory(Category::class)->create()->id,
-            'title'          => 'This is a random title',
-            'description'    => 'This is a random description',
-            'hours_per_week' => 12,
-            'start_date'     => $this->start_date = Carbon::today()->format('Y-m-d'),
-            'end_date'       => $this->end_date = Carbon::tomorrow()->format('Y-m-d'),
+            'user_id'            => factory(User::class)->create()->id,
+            'category_id'        => factory(Category::class)->create()->id,
+            'title'              => 'This is a random title',
+            'description'        => 'This is a random description',
+            'min_hours_per_week' => 3,
+            'max_hours_per_week' => 12,
+            'duration'           => 8,
         ]);
     }
 
@@ -75,20 +74,20 @@ class VolunteerOpportunityTest extends TestCase
     }
 
     /** @test */
-    public function it_has_a_number_of_hours_per_week()
+    public function it_has_a_minimum_number_of_hours_per_week()
     {
-        $this->assertEquals(12, $this->opportunity->hours_per_week);
+        $this->assertEquals(3, $this->opportunity->min_hours_per_week);
     }
 
     /** @test */
-    public function it_has_a_start_date()
+    public function it_has_a_maximum_number_of_hours_per_week()
     {
-        $this->assertEquals($this->start_date, $this->opportunity->start_date->toDateString());
+        $this->assertEquals(12, $this->opportunity->max_hours_per_week);
     }
 
     /** @test */
-    public function it_has_an_end_date()
+    public function it_has_a_duration()
     {
-        $this->assertEquals($this->end_date, $this->opportunity->end_date->toDateString());
+        $this->assertEquals(8, $this->opportunity->duration);
     }
 }

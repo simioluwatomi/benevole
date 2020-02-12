@@ -80,6 +80,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
+    /**
      * Send the email verification notification.
      */
     public function sendEmailVerificationNotification()

@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\VolunteerOpportunity;
+
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Show the application home page.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('home');
+        $opportunities = VolunteerOpportunity::with('owner', 'category')->latest()->take(6)->get();
+        $categories = Category::withCount('opportunities')->get();
+
+        return view('index', compact('opportunities', 'categories'));
     }
 }
