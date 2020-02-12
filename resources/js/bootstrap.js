@@ -1,15 +1,14 @@
 import axios from "axios";
 import jquery from "jquery";
-window.$ = window.jQuery = jquery;
 import popper from "popper.js";
 import "bootstrap";
-require('tabler-ui/dist/assets/js/vendors/chart.bundle.min.js');
-require('tabler-ui/dist/assets/js/vendors/circle-progress.min.js');
-require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-2.0.3.min.js');
-require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-de-merc.js');
-require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-world-mill.js');
-require('tabler-ui/dist/assets/js/vendors/jquery.sparkline.min.js');
-require('tabler-ui/dist/assets/js/vendors/jquery.tablesorter.min.js');
+// require('tabler-ui/dist/assets/js/vendors/chart.bundle.min.js');
+// require('tabler-ui/dist/assets/js/vendors/circle-progress.min.js');
+// require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-2.0.3.min.js');
+// require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-de-merc.js');
+// require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-world-mill.js');
+// require('tabler-ui/dist/assets/js/vendors/jquery.sparkline.min.js');
+// require('tabler-ui/dist/assets/js/vendors/jquery.tablesorter.min.js');
 require('tabler-ui/dist/assets/js/vendors/selectize.min.js');
 
 /**
@@ -19,6 +18,7 @@ require('tabler-ui/dist/assets/js/vendors/selectize.min.js');
  */
 
 window.Popper = popper;
+window.$ = window.jQuery = jquery;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
