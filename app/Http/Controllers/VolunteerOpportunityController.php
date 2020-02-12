@@ -15,6 +15,9 @@ class VolunteerOpportunityController extends Controller
      */
     public function index()
     {
+        $opportunities = VolunteerOpportunity::with('owner', 'category')->get();
+
+        return view('opportunity.index', compact('opportunities'));
     }
 
     /**
