@@ -2,6 +2,8 @@
 
     <div class="card h-100">
 
+        <div class="card-status bg-blue"></div>
+
         <div class="card-header">
 
             <a href="#" class="text-uppercase text-decoration-none">
