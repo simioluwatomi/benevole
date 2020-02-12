@@ -4,12 +4,10 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
-                    <div class="text-center mb-6">
-                        <a href="{{ route('index') }}" class="text-dark">
-                            <h2 class="mt-0 mb-4">
-                                {{ config('app.name', 'Laravel') }}
-                            </h2>
+                <div class="col col-md-4 mx-auto">
+                    <div class="text-center mb-2">
+                        <a href="{{ route('index') }}">
+                            <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
                         </a>
                     </div>
                     <form class="card" action="{{ route('password.update') }}" method="POST">
@@ -63,7 +61,7 @@
                                 >
                             </div>
                             <button type="submit"
-                                    class="btn btn-primary btn-block"
+                                    class="btn btn-twitter btn-block"
                             >
                                 {{ __('Reset Password') }}
                             </button>

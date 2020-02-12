@@ -4,12 +4,10 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
-                    <div class="text-center mb-6">
-                        <a href="{{ route('index') }}" class="text-dark">
-                            <h2 class="mt-0 mb-4">
-                                {{ config('app.name', 'Laravel') }}
-                            </h2>
+                <div class="col col-md-4 mx-auto">
+                    <div class="text-center mb-2">
+                        <a href="{{ route('index') }}">
+                            <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
                         </a>
                     </div>
                     <form class="card" action="{{ route('password.email') }}" method="POST">
@@ -19,7 +17,7 @@
                             <div class="card-title text-center text-uppercase">Forgot Password&#63;</div>
 
                             @if (session('status'))
-                                <alert-component class="mb-3" type="success" body="{{ session('status') }}">
+                                <alert-component variant="success" body="{{ session('status') }}">
                                 </alert-component>
                             @endif
 

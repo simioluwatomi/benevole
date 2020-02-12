@@ -4,12 +4,10 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
-                    <div class="text-center mb-6">
-                        <a href="{{ route('index') }}" class="text-dark">
-                            <h2 class="mt-0 mb-4">
-                                {{ config('app.name', 'Laravel') }}
-                            </h2>
+                <div class="col col-md-4 mx-auto">
+                    <div class="text-center mb-2">
+                        <a href="{{ route('index') }}">
+                            <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
                         </a>
                     </div>
                     <form class="card" action="{{ route('register') }}" method="POST">
@@ -17,9 +15,12 @@
                         <div class="card-body p-6">
                             <div class="card-title text-center text-uppercase">Create an account</div>
                             @if (session('message'))
-                                <alert-component class="mb-3" type="{{ session('message.type') }}" title="{{ session('message.title') }}" body="{{ session('message.body') }}">
+                                <alert-component variant="{{ session('message.type') }}"
+                                                 title="{{ session('message.title') }}"
+                                                 body="{{ session('message.body') }}">
                                 </alert-component>
                             @endif
+
                             <div class="form-group">
                                 <select name="user_type" id="user-type"
                                         class="form-control custom-select @error('user_type') is-invalid @enderror"
@@ -108,7 +109,7 @@
                             </div>
                             <div class="form-footer">
                                 <button type="submit"
-                                        class="btn btn-primary btn-block">{{ __('Register') }}</button>
+                                        class="btn btn-twitter btn-block">{{ __('Register') }}</button>
                             </div>
                         </div>
                     </form>

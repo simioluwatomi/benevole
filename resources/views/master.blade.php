@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"
@@ -13,31 +13,45 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="author" content="Simi Oluwatomi">
 
-        <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Styles -->
         <link href="{{ mix('css/index.css') }}" rel="stylesheet">
+
+        @stack('styles')
+
+        <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
     </head>
     <body class="">
+        <div class="page">
 
-        <div class="page" id="app">
-            @yield('content')
+            <div class="flex-fill">
+
+                @include('partials.header')
+
+                @include('partials.navbar')
+
+                <div class="my-3 my-md-5">
+
+                    @yield('content')
+
+                </div>
+
+            </div>
+
+            @include('partials.footer')
+
         </div>
 
-
-        <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
         <script src="{{ mix('js/vendor.js') }}"></script>
         <script src="{{ mix('js/app.js') }}"></script>
 
-        @stack('scripts')
     </body>
-</html>
 
+</html>

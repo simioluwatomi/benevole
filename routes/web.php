@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VolunteerOpportunityController;
 
-Auth::routes(['verify' => true]);
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/{user}/{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');

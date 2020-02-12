@@ -26,7 +26,6 @@
         "sass-loader": "7.*",
         "tabler-ui": "0.0.34",
         "vue": "^2.6.11",
-        "vue-atlas": "^2.1.8",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {}
