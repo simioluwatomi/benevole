@@ -4,7 +4,7 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
+                <div class="col col-md-4 mx-auto">
                     <div class="text-center mb-2">
                         <a href="{{ route('index') }}">
                             <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
@@ -17,7 +17,7 @@
                             <div class="card-title text-center text-uppercase">Forgot Password&#63;</div>
 
                             @if (session('status'))
-                                <alert-component class="mb-3" type="success" body="{{ session('status') }}">
+                                <alert-component variant="success" body="{{ session('status') }}">
                                 </alert-component>
                             @endif
 

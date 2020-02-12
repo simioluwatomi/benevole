@@ -4,7 +4,7 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
+                <div class="col col-md-4 mx-auto">
                     <div class="text-center mb-2">
                         <a href="{{ route('index') }}">
                             <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">

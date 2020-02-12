@@ -4,7 +4,7 @@
     <div class="page-single">
         <div class="container">
             <div class="row">
-                <div class="col col-login mx-auto">
+                <div class="col col-md-4 mx-auto">
                     <div class="text-center mb-2">
                         <a href="{{ route('index') }}">
                             <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
@@ -15,11 +15,12 @@
                         <div class="card-body p-6">
                             <div class="card-title text-center text-uppercase">Create an account</div>
                             @if (session('message'))
-                                <alert-component class="mb-3" type="{{ session('message.type') }}"
+                                <alert-component variant="{{ session('message.type') }}"
                                                  title="{{ session('message.title') }}"
                                                  body="{{ session('message.body') }}">
                                 </alert-component>
                             @endif
+
                             <div class="form-group">
                                 <select name="user_type" id="user-type"
                                         class="form-control custom-select @error('user_type') is-invalid @enderror"
