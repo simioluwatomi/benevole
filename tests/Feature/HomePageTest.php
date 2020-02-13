@@ -24,12 +24,11 @@ class HomePageTest extends TestCase
         $this->withoutExceptionHandling();
 
         $opportunities = factory(VolunteerOpportunity::class, 30)->create();
-        $latest = $opportunities->sortByDesc('created_at')->first();
 
         $this->get(route('index'))
             ->assertViewIs('index')
-            ->assertViewHas('opportunities', function ($opportunities) use ($latest) {
-                return $opportunities->contains($latest);
+            ->assertViewHas('opportunities', function () use ($opportunities) {
+                return $opportunities->contains($opportunities->first());
             });
     }
 
@@ -39,12 +38,11 @@ class HomePageTest extends TestCase
         $this->withoutExceptionHandling();
 
         $categories = factory(Category::class, 15)->create()->loadCount('opportunities');
-        $category = $categories->first();
 
         $this->get(route('index'))
             ->assertViewIs('index')
-            ->assertViewHas('categories', function ($categories) use ($category) {
-                return $categories->contains($category);
+            ->assertViewHas('categories', function () use ($categories) {
+                return $categories->contains($categories->first());
             });
     }
 }

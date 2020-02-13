@@ -115,7 +115,7 @@
             </div>
 
             <div class="text-center mt-7">
-                <a href="#" class="text-uppercase text-decoration-none">
+                <a href="{{ route('opportunity.index') }}" class="text-uppercase text-decoration-none">
                     All Opportunities
                     <i class="fe fe-arrow-right"></i>
                 </a>

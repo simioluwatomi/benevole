@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\VolunteerOpportunity;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -17,16 +18,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class VolunteerOpportunityTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     private $opportunity;
     /**
-     * @var string
+     * @var array|string
      */
-    private $start_date;
-    /**
-     * @var string
-     */
-    private $end_date;
+    private $requirements;
 
     protected function setUp(): void
     {
@@ -37,22 +35,11 @@ class VolunteerOpportunityTest extends TestCase
             'category_id'        => factory(Category::class)->create()->id,
             'title'              => 'This is a random title',
             'description'        => 'This is a random description',
+            'requirements'       => $this->requirements = $this->faker->sentences(4),
             'min_hours_per_week' => 3,
             'max_hours_per_week' => 12,
             'duration'           => 8,
         ]);
-    }
-
-    /** @test */
-    public function it_belongs_to_a_user()
-    {
-        $this->assertInstanceOf(User::class, $this->opportunity->owner);
-    }
-
-    /** @test */
-    public function it_belongs_to_a_category()
-    {
-        $this->assertInstanceOf(Category::class, $this->opportunity->category);
     }
 
     /** @test */
@@ -65,6 +52,12 @@ class VolunteerOpportunityTest extends TestCase
     public function it_has_a_description()
     {
         $this->assertEquals('This is a random description', $this->opportunity->description);
+    }
+
+    /** @test */
+    public function it_has_requirements()
+    {
+        $this->assertEquals($this->requirements, $this->opportunity->requirements);
     }
 
     /** @test */
@@ -89,5 +82,17 @@ class VolunteerOpportunityTest extends TestCase
     public function it_has_a_duration()
     {
         $this->assertEquals(8, $this->opportunity->duration);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_user()
+    {
+        $this->assertInstanceOf(User::class, $this->opportunity->owner);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_category()
+    {
+        $this->assertInstanceOf(Category::class, $this->opportunity->category);
     }
 }

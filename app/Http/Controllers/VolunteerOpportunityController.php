@@ -15,6 +15,9 @@ class VolunteerOpportunityController extends Controller
      */
     public function index()
     {
+        $opportunities = VolunteerOpportunity::with('owner', 'category')->paginate(12);
+
+        return view('opportunity.index', compact('opportunities'));
     }
 
     /**
@@ -47,6 +50,9 @@ class VolunteerOpportunityController extends Controller
      */
     public function show(User $user, VolunteerOpportunity $volunteerOpportunity)
     {
+        $volunteerOpportunity->load('category');
+
+        return view('opportunity.show', compact('user', 'volunteerOpportunity'));
     }
 
     /**
