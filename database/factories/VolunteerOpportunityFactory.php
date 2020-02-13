@@ -16,6 +16,7 @@ $factory->define(VolunteerOpportunity::class, function (Faker $faker) {
         },
         'title'              => $faker->sentence,
         'description'        => $faker->paragraph,
+        'requirements'       => $faker->sentences,
         'min_hours_per_week' => $faker->numberBetween(1, 4),
         'max_hours_per_week' => $faker->numberBetween(5, 10),
         'duration'           => $faker->numberBetween(1, 12),

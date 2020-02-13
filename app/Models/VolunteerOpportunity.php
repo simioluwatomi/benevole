@@ -13,6 +13,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property int                             $category_id
  * @property string                          $title
  * @property string                          $description
+ * @property array                           $requirements
  * @property string                          $slug
  * @property int                             $min_hours_per_week
  * @property int                             $max_hours_per_week
@@ -33,6 +34,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereMaxHoursPerWeek($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereMinHoursPerWeek($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereRequirements($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VolunteerOpportunity whereUpdatedAt($value)
@@ -52,10 +54,20 @@ class VolunteerOpportunity extends Model
         'category_id',
         'title',
         'description',
+        'requirements',
         'slug',
         'min_hours_per_week',
         'max_hours_per_week',
         'duration',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'requirements' => 'array',
     ];
 
     /**

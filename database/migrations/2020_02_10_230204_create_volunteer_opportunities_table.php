@@ -19,6 +19,7 @@ class CreateVolunteerOpportunitiesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->json('requirements');
             $table->string('slug');
             $table->unsignedSmallInteger('min_hours_per_week');
             $table->unsignedSmallInteger('max_hours_per_week');

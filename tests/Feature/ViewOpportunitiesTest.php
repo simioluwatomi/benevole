@@ -29,4 +29,16 @@ class ViewOpportunitiesTest extends TestCase
                 return $opportunities->contains($opportunities->first());
             });
     }
+
+    /** @test */
+    public function all_users_can_view_an_opportunity()
+    {
+        $this->withoutExceptionHandling();
+
+        $opportunity = factory(VolunteerOpportunity::class)->create();
+
+        $this->get(route('opportunity.show', ['user' => $opportunity->owner, 'volunteerOpportunity' => $opportunity]))
+            ->assertViewIs('opportunity.show')
+            ->assertViewHas('volunteerOpportunity', $opportunity);
+    }
 }

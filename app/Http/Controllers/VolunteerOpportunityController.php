@@ -50,6 +50,9 @@ class VolunteerOpportunityController extends Controller
      */
     public function show(User $user, VolunteerOpportunity $volunteerOpportunity)
     {
+        $volunteerOpportunity->load('category');
+
+        return view('opportunity.show', compact('user', 'volunteerOpportunity'));
     }
 
     /**
