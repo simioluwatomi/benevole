@@ -110,7 +110,16 @@
 
             <div class="row">
 
-                @each('components.opportunity', $opportunities, 'opportunity')
+                @foreach($opportunities as $opportunity)
+
+                    <opportunity-component
+                        :opportunity="{{ $opportunity }}"
+                        :category="{{ $opportunity->category }}"
+                        v-bind:status="false"
+                    >
+                    </opportunity-component>
+
+                @endforeach
 
             </div>
 
