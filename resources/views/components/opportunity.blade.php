@@ -6,7 +6,7 @@
 
         <div class="card-header">
 
-            <a href="#" class="text-uppercase text-decoration-none">
+            <a href="{{ route('category.show', $opportunity->category) }}" class="text-uppercase text-decoration-none">
                 {{ $opportunity->category->title }}
             </a>
 
@@ -15,7 +15,7 @@
         <div class="card-body">
 
             <h4 class="card-title leading-loose">
-                <a href="{{ route('opportunity.show', ['user' => $opportunity->owner, 'volunteerOpportunity' => $opportunity]) }}">
+                <a href="{{ route('opportunity.show', $opportunity) }}">
                     {{ $opportunity->title }}
                 </a>
             </h4>

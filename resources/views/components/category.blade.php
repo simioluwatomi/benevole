@@ -10,7 +10,7 @@
             <div class="text-center">
 
                 <h4 class="text-uppercase mb-5">
-                    <a href="#" class="stretched-link">
+                    <a href="{{ route('category.show', $category) }}" class="stretched-link">
                         {{ $category->title }}
                     </a>
                 </h4>

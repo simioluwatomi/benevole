@@ -37,7 +37,7 @@ class ViewOpportunitiesTest extends TestCase
 
         $opportunity = factory(VolunteerOpportunity::class)->create();
 
-        $this->get(route('opportunity.show', ['user' => $opportunity->owner, 'volunteerOpportunity' => $opportunity]))
+        $this->get(route('opportunity.show', $opportunity))
             ->assertViewIs('opportunity.show')
             ->assertViewHas('volunteerOpportunity', $opportunity);
     }

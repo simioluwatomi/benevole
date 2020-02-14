@@ -28,7 +28,8 @@
 
     </head>
     <body class="">
-        <div class="page">
+
+        <div class="page" id="app">
 
             <div class="flex-fill">
 
