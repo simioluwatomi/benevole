@@ -140,7 +140,12 @@
 
             <div class="row">
 
-                @each('components.category', $categories, 'category')
+                @foreach($categories as $category)
+
+                    <category-component :category="{{ $category }}">
+                    </category-component>
+
+                @endforeach
 
             </div>
 
