@@ -62,6 +62,13 @@ class VolunteerOpportunity extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['createdAtDiffForHumans'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -69,6 +76,16 @@ class VolunteerOpportunity extends Model
     protected $casts = [
         'requirements' => 'array',
     ];
+
+    /**
+     * Get the carbon diif for humans value for the model.
+     *
+     * @return string
+     */
+    public function getCreatedAtDiffForHumansAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 
     /**
      * Get the route key for the model.

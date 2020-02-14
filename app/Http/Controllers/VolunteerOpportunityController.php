@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\VolunteerOpportunity;
 
@@ -43,16 +42,15 @@ class VolunteerOpportunityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User                 $user
      * @param VolunteerOpportunity $volunteerOpportunity
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
-    public function show(User $user, VolunteerOpportunity $volunteerOpportunity)
+    public function show(VolunteerOpportunity $volunteerOpportunity)
     {
-        $volunteerOpportunity->load('category');
+        $volunteerOpportunity->load('category', 'owner');
 
-        return view('opportunity.show', compact('user', 'volunteerOpportunity'));
+        return view('opportunity.show', compact('volunteerOpportunity'));
     }
 
     /**
