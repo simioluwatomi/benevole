@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $opportunities = VolunteerOpportunity::whereCategoryId($category->id)->with('owner')->paginate(9);
+        $opportunities = VolunteerOpportunity::whereCategoryId($category->id)->with('owner')->paginate(12);
 
         return view('category.show', compact('category', 'opportunities'));
     }
