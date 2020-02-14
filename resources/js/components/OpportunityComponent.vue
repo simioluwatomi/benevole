@@ -8,7 +8,7 @@
 
                 <div class="card-status bg-blue"></div>
 
-                <b-link v-bind:href="`/categories/${category.slug}`" class="text-uppercase text-decoration-none">
+                <b-link :href="`/categories/${category.slug}`" class="text-uppercase text-decoration-none">
                     {{ category.title }}
                 </b-link>
 
@@ -19,9 +19,9 @@
             <b-card-body>
 
                 <h4 class="card-title leading-loose">
-                    <a v-bind:href="`/opportunities/${opportunity.slug}`">
+                    <b-link :href="`/opportunities/${opportunity.slug}`">
                         {{ opportunity.title }}
-                    </a>
+                    </b-link>
                 </h4>
 
                 <h4 class="text-muted-dark mb-4">
