@@ -14,7 +14,7 @@ class VolunteerOpportunityController extends Controller
      */
     public function index()
     {
-        $opportunities = VolunteerOpportunity::with('owner', 'category')->paginate(12);
+        $opportunities = VolunteerOpportunity::latest()->with('owner', 'category')->paginate(12);
 
         return view('opportunity.index', compact('opportunities'));
     }
