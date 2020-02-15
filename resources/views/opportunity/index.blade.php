@@ -2,28 +2,24 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="page-header d-flex flex-row justify-content-between">
+        <h1 class="page-title">
+            All Volunteer Opportunities
+        </h1>
 
-        <div class="page-header d-flex flex-row justify-content-between">
-            <h1 class="page-title">
-                All Volunteer Opportunities
-            </h1>
+    </div>
 
-        </div>
+    <hr>
 
-        <hr>
+    <div class="row">
 
-        <div class="row">
+        @each('components.opportunity', $opportunities, 'opportunity')
 
-            @each('components.opportunity', $opportunities, 'opportunity')
+    </div>
 
-        </div>
+    <div class="float-right my-5">
 
-        <div class="float-right my-5">
-
-            {{ $opportunities->links() }}
-
-        </div>
+        {{ $opportunities->links() }}
 
     </div>
 

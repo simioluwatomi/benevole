@@ -9,7 +9,7 @@ import "bootstrap";
 // require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-world-mill.js');
 // require('tabler-ui/dist/assets/js/vendors/jquery.sparkline.min.js');
 // require('tabler-ui/dist/assets/js/vendors/jquery.tablesorter.min.js');
-require('tabler-ui/dist/assets/js/vendors/selectize.min.js');
+import 'tabler/dist/libs/selectize/dist/js/standalone/selectize.min';
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

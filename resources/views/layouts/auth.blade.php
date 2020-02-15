@@ -24,13 +24,19 @@
 
         <!-- Styles -->
         <link href="{{ mix('css/index.css') }}" rel="stylesheet">
+
+        <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
     </head>
-    <body class="">
+    <body class="antialiased border-top-wide border-success d-flex flex-column">
 
-        <div class="page" id="app">
+        <div class="flex-fill d-flex flex-column justify-content-center" id="app">
+
             @yield('content')
-        </div>
 
+        </div>
 
         <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
@@ -38,6 +44,8 @@
         <script src="{{ mix('js/app.js') }}"></script>
 
         @stack('scripts')
+
     </body>
+
 </html>
 

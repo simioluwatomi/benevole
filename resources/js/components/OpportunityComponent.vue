@@ -6,7 +6,7 @@
 
             <template v-if="header" v-slot:header>
 
-                <div class="card-status bg-blue"></div>
+                <div class="card-status-top bg-blue"></div>
 
                 <b-link :href="`/categories/${category.slug}`" class="text-uppercase text-decoration-none">
                     {{ category.title }}
@@ -14,7 +14,7 @@
 
             </template>
 
-            <div v-if="status" class="card-status bg-blue"></div>
+            <div v-if="status" class="card-status-top bg-blue"></div>
 
             <b-card-body>
 
@@ -29,12 +29,12 @@
                 </h4>
 
                 <p class="card-text lead font-weight-normal">
-                    <i class="fe fe-watch px-1 text-primary"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mr-1 text-primary"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>
                     {{ opportunity.duration }} months
                 </p>
 
                 <b-button href="#" variant="primary" class="float-right">
-                    <i class="fe fe-send mr-2"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-md mr-2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     Apply Now
                 </b-button>
 
@@ -43,12 +43,13 @@
             <b-card-footer class="d-flex justify-content-between">
 
                 <div class="col-xs-6">
-                    <i class="fe fe-activity px-1"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mr-2 text-primary"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                     {{ opportunity.min_hours_per_week }} - {{ opportunity.max_hours_per_week }} hours per week
                 </div>
 
                 <div class="col-xs-6">
-                    <i class="fe fe-clock px-1"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mr-1 text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <time :datetime="opportunity.created_at"></time>
                     {{ opportunity.createdAtDiffForHumans }}
                 </div>
 
@@ -78,7 +79,7 @@
             },
             status: {
                 type: Boolean,
-                default: true
+                default: false
             },
         },
     }

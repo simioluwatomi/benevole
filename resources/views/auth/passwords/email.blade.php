@@ -1,71 +1,76 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="page-single">
-        <div class="container">
-            <div class="row">
-                <div class="col col-md-4 mx-auto">
-                    <div class="text-center mb-2">
-                        <a href="{{ route('index') }}">
-                            <img src="{{ asset('images/logo.svg') }}" class="h-9" alt="benevole logo">
-                        </a>
-                    </div>
-                    <form class="card" action="{{ route('password.email') }}" method="POST">
-                        @csrf
-                        <div class="card-body p-6">
 
-                            <div class="card-title text-center text-uppercase">Forgot Password&#63;</div>
+    <div class="container-tight py-6">
 
-                            @if (session('status'))
-                                <alert-component variant="success" body="{{ session('status') }}">
-                                </alert-component>
-                            @endif
+        @include('components.auth-logo')
 
-                            <p class="text-muted mb-5">
-                                Enter your email address and a password reset link will be emailed to you.
-                            </p>
+        <form class="card card-md" action="{{ route('password.email') }}" method="POST">
 
-                            <div class="form-group">
-                                <label for="email">{{ __('E-mail Address') }}</label>
-                                <input type="email"
-                                       id="email"
-                                       name="email"
-                                       class="form-control @error('email') is-invalid @enderror"
-                                       value="{{ old('email') }}"
-                                       autocomplete="email"
-                                       placeholder="Enter account email address"
-                                       required
-                                       autofocus
-                                >
-                                @error('email')
-                                @include('partials.invalid-feedback')
-                                @enderror
-                            </div>
-                            <button type="submit"
-                                    class="btn btn-twitter btn-block"
-                            >
-                                {{ __('Send Password Reset Link') }}
-                            </button>
-                        </div>
-                    </form>
+            @csrf
 
-                    @if (Route::has('login'))
-                        <p class="mt-3 text-center text-muted">Remember your password&#63;
-                            <a href="{{ route('login') }}">
-                                {{ __('Login') }}
-                            </a>
-                        </p>
-                    @endif
+            <div class="card-body">
 
-                    @if (Route::has('register'))
-                        <p class="mt-3 text-center text-muted">Don&rsquo;t have an account&#63;
-                            <a href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </a>
-                        </p>
-                    @endif
+                <h2 class="card-title text-center text-uppercase">Forgot Password&#63;</h2>
+
+                @if (session('status'))
+                    <alert-component variant="success" body="{{ session('status') }}">
+                    </alert-component>
+                @endif
+
+                <p class="text-muted mb-4">
+                    Enter your email address and a password reset link will be emailed to you.
+                </p>
+
+                <div class="form-group mb-5">
+
+                    <label for="email" class="form-label">
+                        {{ __('E-mail Address') }}
+                        <span class="form-required">*</span>
+                    </label>
+
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           class="form-control @error('email') is-invalid @enderror"
+                           value="{{ old('email') }}"
+                           autocomplete="email"
+                           placeholder="Enter account email address"
+                           required
+                           autofocus
+                    >
+
+                    @error('email')
+                    @include('partials.invalid-feedback')
+                    @enderror
+
                 </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    {{ __('Send Password Reset Link') }}
+                </button>
+
             </div>
-        </div>
+
+        </form>
+
+        @if (Route::has('login'))
+            <p class="mt-3 text-center text-muted">Remember your password&#63;
+                <a href="{{ route('login') }}">
+                    {{ __('Login') }}
+                </a>
+            </p>
+        @endif
+
+        @if (Route::has('register'))
+            <p class="mt-3 text-center text-muted">Don&rsquo;t have an account&#63;
+                <a href="{{ route('register') }}">
+                    {{ __('Register') }}
+                </a>
+            </p>
+        @endif
+
     </div>
+
 @endsection

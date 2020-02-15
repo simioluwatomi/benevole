@@ -26,20 +26,23 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
+
     </head>
-    <body class="">
+    <body class="antialiased">
 
         <div class="page" id="app">
 
-            <div class="flex-fill">
+            <div class="content">
 
                 @include('partials.header')
 
-                @include('partials.navbar')
+                <div class="content-page">
 
-                <div class="my-3 my-md-5">
+                    <main class="container my-4 flex-fill">
 
-                    @yield('content')
+                        @yield('content')
+
+                    </main>
 
                 </div>
 

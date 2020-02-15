@@ -1,30 +1,32 @@
 <template>
 
-    <div class="col-md-3 py-2">
+    <div class="col-md-6 col-xl-3 py-2">
 
-        <b-card class="h-100" no-body>
+        <b-link class="card card-link h-100" :href="`/categories/${category.slug}`">
 
-            <div class="card-status bg-green"></div>
+            <div class="card-status-left bg-green"></div>
 
             <b-card-body>
 
-                <div class="text-center">
+                <div class="lh-sm text-center">
 
-                    <h4 class="text-uppercase mb-5">
-                        <b-link :href="`/categories/${category.slug}`" class="stretched-link">
-                            {{ category.title }}
-                        </b-link>
-                    </h4>
+                    <div class="h3 strong">
 
-                    <span class="h2 mb-0">
-                        {{ category.opportunities_count }}
-                    </span>
+                        {{ category.title }}
+
+                    </div>
+
+                    <div class="text-muted mt-3">
+
+                        {{ category.opportunities_count }} opportunities
+
+                    </div>
 
                 </div>
 
             </b-card-body>
 
-        </b-card>
+        </b-link>
 
     </div>
 

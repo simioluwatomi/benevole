@@ -2,7 +2,7 @@
 
     <div class="card h-100">
 
-        <div class="card-status bg-blue"></div>
+        <div class="card-status-top bg-blue"></div>
 
         <div class="card-header">
 
