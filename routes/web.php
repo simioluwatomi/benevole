@@ -19,6 +19,16 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 
-Route::get('/opportunities', [VolunteerOpportunityController::class, 'index'])->name('opportunity.index');
+Route::group(['prefix' => 'opportunities'], function () {
+    Route::get('/', [VolunteerOpportunityController::class, 'index'])->name('opportunity.index');
 
-Route::get('/opportunities/{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');
+    Route::get('/create', [VolunteerOpportunityController::class, 'create'])
+        ->name('opportunity.create')
+        ->middleware('auth');
+
+    Route::post('/', [VolunteerOpportunityController::class, 'store'])
+        ->name('opportunity.store')
+        ->middleware('auth');
+
+    Route::get('{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');
+});

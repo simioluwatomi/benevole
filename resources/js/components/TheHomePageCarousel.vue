@@ -19,7 +19,7 @@
                         porta
                         gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                     <p>
-                        <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>
+                        <a class="btn btn-primary" href="#" role="button">Sign up today</a>
                     </p>
                 </div>
 
@@ -32,7 +32,7 @@
                     porta
                     gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                 <p>
-                    <a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a>
+                    <a class="btn btn-primary" href="#" role="button">Learn more</a>
                 </p>
 
             </b-carousel-slide>
@@ -44,7 +44,7 @@
                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
                         porta
                         gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    <p><a class="btn btn-primary" href="#" role="button">Browse gallery</a></p>
                 </div>
 
             </b-carousel-slide>
@@ -68,8 +68,28 @@
 
 <style scoped>
 
+    /* Carousel base class */
     .carousel {
         margin-bottom: 4rem;
+    }
+
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+        bottom: 3rem;
+        z-index: 10;
+    }
+
+    /* Declare heights because of positioning of img element */
+    .carousel-item {
+        height: 32rem;
+    }
+
+    .carousel-item > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        height: 32rem;
     }
 
 </style>

@@ -98,10 +98,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the role of this user.
+     * Get the role of a User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * A user creates many volunteer opportunities.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function opportunities()
+    {
+        return $this->hasMany(VolunteerOpportunity::class);
     }
 }

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -80,5 +81,11 @@ class UserTest extends TestCase
     public function a_user_has_a_role()
     {
         $this->assertInstanceOf(Role::class, $this->user->role);
+    }
+
+    /** @test */
+    public function a_user_creates_many_volunteer_opportunities()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->opportunities);
     }
 }
