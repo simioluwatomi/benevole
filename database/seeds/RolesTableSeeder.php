@@ -6,17 +6,19 @@ class RolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
         DB::table('roles')->insert([
-            'name' => 'organization',
+            'name'       => 'organization',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'volunteer',
+            'name'       => 'volunteer',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

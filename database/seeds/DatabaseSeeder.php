@@ -9,12 +9,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        $this->call(RolesTableSeeder::class);
-
-        $categories = factory(\App\Models\Category::class, 10)->create();
-
-        $categories->each(function ($category) {
-            factory(\App\Models\VolunteerOpportunity::class, 15)->create(['category_id' => $category->id]);
-        });
+        $this->call(RolesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(VolunteerOpportunitiesTableSeeder::class);
     }
 }
