@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -39,6 +40,8 @@ class UserTest extends TestCase
             'email_verified_at'     => now(),
             'telephone_verified_at' => now()->addDay(),
         ]);
+
+        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     /** @test */
@@ -87,5 +90,11 @@ class UserTest extends TestCase
     public function a_user_creates_many_volunteer_opportunities()
     {
         $this->assertInstanceOf(Collection::class, $this->user->opportunities);
+    }
+
+    /** @test */
+    public function a_user_has_a_profile()
+    {
+        $this->assertInstanceOf(Profile::class, $this->user->profile);
     }
 }

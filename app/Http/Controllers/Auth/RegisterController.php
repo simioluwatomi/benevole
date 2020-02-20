@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -35,8 +36,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -46,15 +45,13 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param Request $request
+     * @param RegisterUserRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request->validated())));
 
         $expiry = config('auth.verification.expire');
 
@@ -62,23 +59,6 @@ class RegisterController extends Controller
             'type'  => 'success',
             'title' => 'Registration successful',
             'body'  => "An e-mail verification link has been sent to you. The link expires in {$expiry} minutes.",
-        ]);
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'user_type' => ['required', 'string'],
-            'username'  => ['required', 'string', 'max:255', 'unique:users'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'  => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -91,11 +71,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        if ($data['user_type'] == 'volunteer') {
+            return User::create([
+                'role_id'  => Role::whereName($data['user_type'])->first()->id,
+                'username' => $data['username'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+        $user = User::create([
             'role_id'  => Role::whereName($data['user_type'])->first()->id,
             'username' => $data['username'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Profile::create([
+            'user_id'           => $user->id,
+            'organization_name' => $data['organization_name'],
+        ]);
+
+        return $user;
     }
 }
