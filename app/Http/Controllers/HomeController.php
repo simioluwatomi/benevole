@@ -14,8 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $opportunities = VolunteerOpportunity::with('owner', 'category')->latest()->take(6)->get();
         $categories = Category::withCount('opportunities')->get();
+
+        $opportunities = VolunteerOpportunity::with(['owner.profile' => function ($query) {
+            $query->select(['id', 'user_id', 'organization_name']);
+        }, 'category'])->latest()->take(6)->get();
 
         return view('index', compact('opportunities', 'categories'));
     }
