@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
+use RoleSeeder;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
-use RolesTableSeeder;
 use App\Models\VolunteerOpportunity;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -39,7 +39,7 @@ class CreateVolunteerOpportunitiesTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(RolesTableSeeder::class);
+        $this->seed(RoleSeeder::class);
 
         $this->user = factory(User::class)->create(['role_id' => Role::whereName('volunteer')->first()->id]);
     }
