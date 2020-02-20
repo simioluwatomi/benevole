@@ -15,7 +15,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \App\Models\User
  */
 class UserTest extends TestCase
 {

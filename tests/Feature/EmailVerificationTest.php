@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \App\Http\Controllers\Auth\VerificationController
  */
 class EmailVerificationTest extends TestCase
 {
