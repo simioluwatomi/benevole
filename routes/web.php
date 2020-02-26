@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\VolunteerOpportunityController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -32,3 +33,5 @@ Route::group(['prefix' => 'opportunities'], function () {
 
     Route::get('{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');
 });
+
+Route::get('/{user}', [UserProfileController::class, 'show'])->name('user.show');
