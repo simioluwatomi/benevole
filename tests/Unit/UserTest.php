@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Profile;
+use App\Models\UserProfile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,16 +32,14 @@ class UserTest extends TestCase
         $this->telephone = $this->faker->e164PhoneNumber;
 
         $this->user = User::create([
-            'role_id'               => factory(Role::class)->create()->id,
-            'username'              => 'johndoe',
-            'email'                 => 'johndoe@example.com',
-            'telephone'             => $this->telephone,
-            'password'              => bcrypt('password'),
-            'email_verified_at'     => now(),
-            'telephone_verified_at' => now()->addDay(),
+            'role_id'           => factory(Role::class)->create()->id,
+            'username'          => 'johndoe',
+            'email'             => 'johndoe@example.com',
+            'password'          => bcrypt('password'),
+            'email_verified_at' => now(),
         ]);
 
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
+        factory(UserProfile::class)->create(['user_id' => $this->user->id]);
     }
 
     /** @test */
@@ -57,12 +55,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_has_a_telephone()
-    {
-        $this->assertEquals($this->telephone, $this->user->telephone);
-    }
-
-    /** @test */
     public function a_user_has_a_password()
     {
         $this->assertTrue(Hash::check('password', $this->user->password));
@@ -72,12 +64,6 @@ class UserTest extends TestCase
     public function a_user_has_an_email_verified_at()
     {
         $this->assertInstanceOf(Carbon::class, $this->user->email_verified_at);
-    }
-
-    /** @test */
-    public function a_user_has_a_telephone_verified_at()
-    {
-        $this->assertInstanceOf(Carbon::class, $this->user->telephone_verified_at);
     }
 
     /** @test */
@@ -95,6 +81,6 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_has_a_profile()
     {
-        $this->assertInstanceOf(Profile::class, $this->user->profile);
+        $this->assertInstanceOf(UserProfile::class, $this->user->profile);
     }
 }

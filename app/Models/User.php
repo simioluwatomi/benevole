@@ -23,6 +23,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property null|\Illuminate\Support\Carbon                                                                           $updated_at
  * @property \Illuminate\Notifications\DatabaseNotification[]|\Illuminate\Notifications\DatabaseNotificationCollection $notifications
  * @property null|int                                                                                                  $notifications_count
+ * @property \App\Models\VolunteerOpportunity[]|\Illuminate\Database\Eloquent\Collection                               $opportunities
+ * @property null|int                                                                                                  $opportunities_count
+ * @property \App\Models\UserProfile                                                                                   $profile
  * @property \App\Models\Role                                                                                          $role
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
@@ -54,10 +57,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'role_id',
         'username',
         'email',
-        'telephone',
         'password',
         'email_verified_at',
-        'telephone_verified_at',
     ];
 
     /**
@@ -114,7 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(UserProfile::class, 'user_id');
     }
 
     /**
