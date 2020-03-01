@@ -11,7 +11,10 @@
             img-height="480"
         >
             <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-            <b-carousel-slide img-blank img-alt="Blank image">
+            <b-carousel-slide
+                img-alt="group of people huddling"
+                img-src="https://source.unsplash.com/lbLgFFlADrY/1024x480"
+            >
 
                 <div class="text-left">
                     <h1>Example headline.</h1>
@@ -25,8 +28,10 @@
 
             </b-carousel-slide>
 
-            <b-carousel-slide img-blank img-alt="Blank image">
-
+            <b-carousel-slide
+                img-alt="happy children doing peace hand sign"
+                img-src="https://source.unsplash.com/AEaTUnvneik/1024X480"
+            >
                 <h1>Another example headline.</h1>
                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
                     porta
@@ -37,8 +42,10 @@
 
             </b-carousel-slide>
 
-            <b-carousel-slide img-blank img-alt="Blank image">
-
+            <b-carousel-slide
+                img-alt="volunteer wearing a red shirt"
+                img-src="https://source.unsplash.com/7uSrOyY1U0I/1024x480"
+            >
                 <div class="text-right">
                     <h1>One more for good measure.</h1>
                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
@@ -66,7 +73,7 @@
     }
 </script>
 
-<style scoped>
+<style>
 
     /* Carousel base class */
     .carousel {

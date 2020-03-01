@@ -25,7 +25,7 @@
                 </h4>
 
                 <h4 class="text-muted-dark mb-4">
-                    {{ opportunity.owner.username }}
+                    {{ opportunity.owner.profile.organization_name }}
                 </h4>
 
                 <p class="card-text lead font-weight-normal">

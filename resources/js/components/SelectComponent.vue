@@ -46,6 +46,10 @@
                 type: String,
                 required: false,
             },
+            optionsIdentifier: {
+                type: String,
+                required: false,
+            },
             placeholder: {
                 type: String,
                 default: 'Select an option'
@@ -64,11 +68,10 @@
             selectOptions() {
                 if (typeof this.options[0] == 'object') {
                     return this.options.map(function (object) {
-                        return {value: object.id, text: object[this.optionsText]};
+                        return {value: object[this.optionsIdentifier], text: object[this.optionsText]};
                     }.bind(this));
-                } else {
-                    return this.options;
                 }
+                return this.options;
             }
         }
     }

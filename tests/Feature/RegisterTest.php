@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use RoleSeeder;
 use Tests\TestCase;
 use App\Models\User;
-use RolesTableSeeder;
 use Illuminate\Auth\Events\Registered;
 use App\Notifications\VerifyEmailQueued;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,7 +15,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \App\Http\Controllers\Auth\RegisterController
  */
 class RegisterTest extends TestCase
 {
@@ -29,7 +29,7 @@ class RegisterTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        $this->seed(RolesTableSeeder::class);
+        $this->seed(RoleSeeder::class);
     }
 
     /** @test */
@@ -43,13 +43,13 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function guest_users_are_sent_verification_email_but_are_not_logged_in_after_registration()
+    public function users_are_not_logged_in_after_registration()
     {
         $this->withoutExceptionHandling();
 
         $form = [
-            'user_type'              => $this->faker->randomElement(['volunteer', 'organization']),
-            'username'               => $this->faker->unique()->userName,
+            'user_type'              => 'volunteer',
+            'username'               => 'username',
             'email'                  => $this->faker->unique()->safeEmail,
             'password'               => 'password',
             'password_confirmation'  => 'password',
@@ -63,7 +63,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function email_verification_notification_is_sent_to_users()
+    public function email_verification_notification_is_sent_when_the_registered_event_is_fired()
     {
         $this->withoutExceptionHandling();
         Notification::fake();
@@ -73,5 +73,26 @@ class RegisterTest extends TestCase
         (new SendEmailVerificationNotification())->handle(new Registered($user));
 
         Notification::assertSentTo($user, VerifyEmailQueued::class);
+    }
+
+    /** @test */
+    public function profile_is_created_for_organizations_on_registration()
+    {
+        $this->withoutExceptionHandling();
+
+        $form = [
+            'user_type'              => 'organization',
+            'username'               => 'username',
+            'email'                  => $this->faker->unique()->safeEmail,
+            'organization_name'      => $this->faker->company,
+            'password'               => 'password',
+            'password_confirmation'  => 'password',
+        ];
+
+        $this->post('/register', $form)->assertSessionHas('message');
+
+        $this->assertDatabaseHas('profiles', ['organization_name' => $form['organization_name']]);
+
+        $this->assertGuest();
     }
 }
