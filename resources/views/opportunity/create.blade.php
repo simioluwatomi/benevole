@@ -30,6 +30,7 @@
                         pre-selected="{{ old('category_id') }}"
                         :options='@json($categories)'
                         options-text="title"
+                        options-identifier="id"
                         placeholder="Select opportunity category"
                         :required="true"
                     ></select-component>
