@@ -49,7 +49,7 @@ class RegisterTest extends TestCase
 
         $form = [
             'user_type'              => 'volunteer',
-            'username'               => $this->faker->unique()->userName,
+            'username'               => 'username',
             'email'                  => $this->faker->unique()->safeEmail,
             'password'               => 'password',
             'password_confirmation'  => 'password',
@@ -63,7 +63,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function email_verification_notification_is_sent_to_users()
+    public function email_verification_notification_is_sent_when_the_registered_event_is_fired()
     {
         $this->withoutExceptionHandling();
         Notification::fake();
@@ -82,7 +82,7 @@ class RegisterTest extends TestCase
 
         $form = [
             'user_type'              => 'organization',
-            'username'               => $this->faker->unique()->userName,
+            'username'               => 'username',
             'email'                  => $this->faker->unique()->safeEmail,
             'organization_name'      => $this->faker->company,
             'password'               => 'password',
