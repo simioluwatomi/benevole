@@ -35,3 +35,4 @@ Route::group(['prefix' => 'opportunities'], function () {
 });
 
 Route::get('/{user}', [UserProfileController::class, 'show'])->name('user.show');
+Route::patch('/{user}', [UserProfileController::class, 'update'])->middleware('auth')->name('user.update');

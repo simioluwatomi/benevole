@@ -50,6 +50,8 @@
 
             @include('partials.footer')
 
+            @stack('modal')
+
         </div>
 
         <script src="{{ mix('js/manifest.js') }}"></script>
