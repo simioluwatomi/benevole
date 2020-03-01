@@ -4,7 +4,7 @@
 
     <div class="container-tight py-6">
 
-        @include('components.auth-logo')
+        @include('partials.auth-logo')
 
         <form class="card card-md" action="{{ route('password.email') }}" method="POST">
 
