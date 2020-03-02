@@ -1,4 +1,4 @@
-<b-modal id="edit-profile-modal" centered title="Edit Profile" size="lg" hide-footer>
+<b-modal id="edit-profile-modal" centered title="Edit Profile" size="lg" hide-footer :visible="{{ session('profile-modal-open') ?? 'false' }}">
 
     <template v-slot:modal-header-close>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

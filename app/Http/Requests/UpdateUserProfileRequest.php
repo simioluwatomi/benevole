@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -46,5 +47,14 @@ class UpdateUserProfileRequest extends FormRequest
         return [
             '*.not_regex' => 'The :attribute field should not contain spaces.',
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        if ($validator->fails()) {
+            session()->flash('profile-modal-open', 'true');
+        }
+
+        return $validator;
     }
 }
