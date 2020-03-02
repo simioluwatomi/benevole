@@ -46,9 +46,10 @@ class UserProfileController extends Controller
      */
     public function update(UpdateUserProfileRequest $request, User $user)
     {
+        $validated = $request->validated();
         $user->update([
-            'username' => $request->input('username'),
-            'email'    => $request->input('email'),
+            'username' => $validated['username'],
+            'email'    => $validated['email'],
         ]);
 
         UserProfile::updateOrCreate(
@@ -56,12 +57,12 @@ class UserProfileController extends Controller
                 'user_id' => $user->id,
             ],
             [
-                'first_name'        => $request->input('first_name'),
-                'last_name'         => $request->input('last_name'),
-                'country'           => $request->input('country'),
-                'bio'               => $request->input('bio'),
-                'twitter_username'  => $request->input('twitter_username'),
-                'linkedin_username' => $request->input('linkedin_username'),
+                'first_name'        => $validated['first_name'],
+                'last_name'         => $validated['last_name'],
+                'country'           => $validated['country'],
+                'bio'               => $validated['bio'],
+                'twitter_username'  => $validated['twitter_username'],
+                'linkedin_username' => $validated['linkedin_username'],
             ]
         );
 
