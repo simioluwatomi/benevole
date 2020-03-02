@@ -95,7 +95,7 @@ class UpdateUserProfileTest extends TestCase
         $form = factory(UserProfile::class)->make()->toArray();
 
         $form = array_merge($form, [
-            'username' => 'newUsername',
+            'username' => $this->faker->lastName,
             'email'    => $this->user->email,
         ]);
 
