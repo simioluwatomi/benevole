@@ -1,6 +1,16 @@
 @extends('layouts.auth')
 
 @section('content')
+
+    @if (session('message'))
+        <notification-component
+            type="{{ session('message.type') }}"
+            body="{{ session('message.body') }}"
+            :timeout="5000"
+        >
+        </notification-component>
+    @endif
+
     <div class="container-tight py-6">
 
        @include('partials.auth-logo')
