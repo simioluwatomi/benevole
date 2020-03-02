@@ -57,6 +57,18 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can update the models user.
+     *
+     * @param User $user
+     *
+     * @return mixed
+     */
+    public function updatePassword(User $user)
+    {
+        return $user->hasVerifiedEmail();
+    }
+
+    /**
      * Determine whether the user can delete the models user.
      *
      * @param User $user
