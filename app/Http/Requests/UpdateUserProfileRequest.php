@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\NoWhiteSpace;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,12 +27,24 @@ class UpdateUserProfileRequest extends FormRequest
         return [
             'username'          => ['required', 'alpha_dash', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'email'             => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-            'first_name'        => ['required', 'string', 'max:60', new NoWhiteSpace()],
-            'last_name'         => ['required', 'string', 'max:60', new NoWhiteSpace()],
+            'first_name'        => ['required', 'string', 'max:60', 'not_regex:/\s/'],
+            'last_name'         => ['required', 'string', 'max:60', 'not_regex:/\s/'],
             'country'           => ['required', 'string', 'max:48'],
             'bio'               => ['nullable', 'string', 'max:200'],
             'twitter_username'  => ['nullable', 'string', 'max:60'],
             'linkedin_username' => ['nullable', 'string', 'max:60'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            '*.not_regex' => 'The :attribute field should not contain spaces.',
         ];
     }
 }
