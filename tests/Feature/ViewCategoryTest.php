@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Category;
+use App\Models\VolunteerOpportunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -22,8 +23,13 @@ class ViewCategoryTest extends TestCase
 
         $category = factory(Category::class)->create();
 
+        $opportunities = factory(VolunteerOpportunity::class, 10)->create(['category_id' => $category->id]);
+
         $this->get(route('category.show', $category))
             ->assertViewIs('category.show')
-            ->assertViewHas('category', $category);
+            ->assertViewHas('category', $category)
+            ->assertViewHas('opportunities', function () use ($opportunities) {
+                return $opportunities->contains($opportunities->first());
+            });
     }
 }
