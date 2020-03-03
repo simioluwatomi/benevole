@@ -104,6 +104,10 @@ import {formatDistance} from "date-fns";import {parseISO} from "date-fns";
                             {{ opportunity.title }}
                         </h1>
 
+                        <h3 class="text-center font-weight-normal mb-4">
+                            {{ opportunity.owner.organization.organization_name }}
+                        </h3>
+
                         <div class="d-flex justify-content-around flex-wrap mb-5">
 
                             <h3>
@@ -180,8 +184,6 @@ import {formatDistance} from "date-fns";import {parseISO} from "date-fns";
 </template>
 
 <script>
-
-    import {formatDistance, parseISO} from 'date-fns';
 
     export default {
         name: "OpportunityDetailComponent",

@@ -47,8 +47,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $opportunities = VolunteerOpportunity::whereCategoryId($category->id)
-            ->with(['owner.profile' => function ($query) {
-                $query->select(['id', 'user_id', 'organization_name']);
+            ->with(['owner.organization' => function ($query) {
+                $query->select(['id', 'organization_id', 'organization_name']);
             }])
             ->paginate(12);
 
