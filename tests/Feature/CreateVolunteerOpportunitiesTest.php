@@ -21,19 +21,9 @@ class CreateVolunteerOpportunitiesTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @var User
      */
     private $user;
-
-    /**
-     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-     */
-    private $organization;
-
-    /**
-     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-     */
-    private $volunteer;
 
     protected function setUp(): void
     {
@@ -67,7 +57,23 @@ class CreateVolunteerOpportunitiesTest extends TestCase
     }
 
     /** @test */
-    public function organizations_can_view_the_form_to_create_an_opportunity()
+    public function unverified_organizations_can_not_view_the_form_to_create_an_opportunity()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->user->update([
+            'role_id'           => Role::whereName('organization')->first()->id,
+            'email_verified_at' => null,
+        ]);
+
+        $this->actingAs($this->user);
+
+        $this->get(route('opportunity.create'))
+            ->assertRedirect();
+    }
+
+    /** @test */
+    public function verified_organizations_can_view_the_form_to_create_an_opportunity()
     {
         $this->withoutExceptionHandling();
 
@@ -103,7 +109,26 @@ class CreateVolunteerOpportunitiesTest extends TestCase
     }
 
     /** @test */
-    public function organizations_can_create_an_opportunity()
+    public function unverified_organizations_can_create_an_opportunity()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->expectException(AuthorizationException::class);
+
+        $this->user->update([
+            'role_id'           => Role::whereName('organization')->first()->id,
+            'email_verified_at' => null,
+        ]);
+
+        $this->actingAs($this->user);
+
+        $opportunity = factory(VolunteerOpportunity::class)->raw();
+
+        $this->post(route('opportunity.store'), $opportunity);
+    }
+
+    /** @test */
+    public function verified_organizations_can_create_an_opportunity()
     {
         $this->withoutExceptionHandling();
 
