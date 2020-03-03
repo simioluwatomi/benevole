@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Models\OrganizationProfile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -86,8 +85,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        Profile::create([
-            'user_id'           => $user->id,
+        OrganizationProfile::create([
+            'organization_id'   => $user->id,
             'organization_name' => $data['organization_name'],
         ]);
 

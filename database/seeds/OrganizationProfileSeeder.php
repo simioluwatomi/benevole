@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\User;
-use App\Models\Profile;
 use Illuminate\Database\Seeder;
+use App\Models\OrganizationProfile;
 
-class ProfileSeeder extends Seeder
+class OrganizationProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ProfileSeeder extends Seeder
         })->get();
 
         $organizations->each(function ($org) {
-            factory(Profile::class)->create(['user_id' => $org->id]);
+            factory(OrganizationProfile::class)->create(['organization_id' => $org->id]);
         });
     }
 }

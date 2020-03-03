@@ -91,7 +91,7 @@ class RegisterTest extends TestCase
 
         $this->post('/register', $form)->assertSessionHas('message');
 
-        $this->assertDatabaseHas('profiles', ['organization_name' => $form['organization_name']]);
+        $this->assertDatabaseHas('organization_profiles', ['organization_name' => $form['organization_name']]);
 
         $this->assertGuest();
     }

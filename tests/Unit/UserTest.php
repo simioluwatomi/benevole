@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Collection;
+use App\Models\OrganizationProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,6 +41,7 @@ class UserTest extends TestCase
         ]);
 
         factory(UserProfile::class)->create(['user_id' => $this->user->id]);
+        factory(OrganizationProfile::class)->create(['organization_id' => $this->user->id]);
     }
 
     /** @test */
@@ -82,5 +84,11 @@ class UserTest extends TestCase
     public function a_user_has_a_profile()
     {
         $this->assertInstanceOf(UserProfile::class, $this->user->profile);
+    }
+
+    /** @test */
+    public function a_user_has_an_organization_profile()
+    {
+        $this->assertInstanceOf(OrganizationProfile::class, $this->user->organization);
     }
 }
