@@ -25,7 +25,7 @@
                 </h4>
 
                 <h4 class="text-muted-dark mb-4">
-                    {{ opportunity.owner.profile.organization_name }}
+                    {{ opportunity.owner.organization.organization_name }}
                 </h4>
 
                 <p class="card-text lead font-weight-normal">
@@ -85,8 +85,6 @@
 </template>
 
 <script>
-
-    import {formatDistance, parseISO} from 'date-fns';
 
     export default {
         name: "OpportunityComponent",

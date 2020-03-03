@@ -2,6 +2,8 @@ import axios from "axios";
 import jquery from "jquery";
 import popper from "popper.js";
 import "bootstrap";
+import {formatDistance, parseISO} from 'date-fns';
+
 // require('tabler-ui/dist/assets/js/vendors/chart.bundle.min.js');
 // require('tabler-ui/dist/assets/js/vendors/circle-progress.min.js');
 // require('tabler-ui/dist/assets/js/vendors/jquery-jvectormap-2.0.3.min.js');
@@ -18,6 +20,9 @@ import "bootstrap";
 
 window.Popper = popper;
 window.$ = window.jQuery = jquery;
+
+window.formatDistance = formatDistance;
+window.parseISO = parseISO;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
