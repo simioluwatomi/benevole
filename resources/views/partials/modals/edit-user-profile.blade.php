@@ -229,7 +229,7 @@
 
             <b-button variant="secondary" @click="$bvModal.hide('edit-profile-modal')">Cancel</b-button>
 
-            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <b-button type="submit" variant="primary">Update Profile</b-button>
 
         </div>
 

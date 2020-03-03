@@ -89,7 +89,7 @@
 
             <b-button variant="secondary" @click="$bvModal.hide('update-password-modal')">Cancel</b-button>
 
-            <button type="submit" class="btn btn-primary">Update Password</button>
+            <b-button type="submit" variant="primary">Update Password</b-button>
 
         </div>
 
