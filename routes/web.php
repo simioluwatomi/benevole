@@ -25,12 +25,12 @@ Route::group(['prefix' => 'opportunities'], function () {
     Route::get('/', [VolunteerOpportunityController::class, 'index'])->name('opportunity.index');
 
     Route::get('/create', [VolunteerOpportunityController::class, 'create'])
-        ->name('opportunity.create')
-        ->middleware('auth');
+        ->middleware('auth', 'verified')
+        ->name('opportunity.create');
 
     Route::post('/', [VolunteerOpportunityController::class, 'store'])
-        ->name('opportunity.store')
-        ->middleware('auth');
+        ->middleware('auth')
+        ->name('opportunity.store');
 
     Route::get('{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');
 });
