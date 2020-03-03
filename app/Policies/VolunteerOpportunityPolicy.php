@@ -42,7 +42,7 @@ class VolunteerOpportunityPolicy
      */
     public function create(User $user)
     {
-        return $user->role->name === 'organization';
+        return $user->role->name === 'organization' && $user->hasVerifiedEmail();
     }
 
     /**
