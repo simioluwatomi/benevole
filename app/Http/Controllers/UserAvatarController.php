@@ -17,7 +17,9 @@ class UserAvatarController extends Controller
      */
     public function __invoke(Request $request, User $user)
     {
-        $request->validate(['avatar' => ['required', 'image', 'max:1024']]);
+        $request->validate(['avatar' => ['required', 'image', 'max:1024']], [
+            'max' => 'The uploaded image should not be greater than 1 megabyte.',
+        ]);
 
         $path = $request->file('avatar')->storeAs(
             "{$user->id}",

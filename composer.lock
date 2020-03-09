@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a00adfbd9a2f846d9ed443312275df68",
+    "content-hash": "e4c88607c21e2de0bd6fd2484133b8b0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4995,16 +4995,16 @@
         },
         {
             "name": "jasonmccreary/laravel-test-assertions",
-            "version": "v0.4.1",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
-                "reference": "c473e80bbe15418528490c3f554a9881aba31f8e"
+                "reference": "42e4fd8449ba6412c8b5652fe4b98db7ec711682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/c473e80bbe15418528490c3f554a9881aba31f8e",
-                "reference": "c473e80bbe15418528490c3f554a9881aba31f8e",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/42e4fd8449ba6412c8b5652fe4b98db7ec711682",
+                "reference": "42e4fd8449ba6412c8b5652fe4b98db7ec711682",
                 "shasum": ""
             },
             "require": {
@@ -5029,7 +5029,7 @@
                 }
             ],
             "description": "A set of helpful assertions when testing Laravel applications.",
-            "time": "2020-02-22T13:42:44+00:00"
+            "time": "2020-03-04T13:17:37+00:00"
         },
         {
             "name": "justinrainbow/json-schema",

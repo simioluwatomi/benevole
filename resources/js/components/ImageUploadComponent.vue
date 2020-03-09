@@ -10,33 +10,29 @@
 
         <p class="mt-3 text-center text-danger">{{ errorMessages[0] }}</p>
 
-        <form @submit.prevent="upload">
+        <div class="btn-options justify-content-around my-3">
 
-            <div class="btn-options justify-content-around my-3">
+            <ValidationProvider rules="required|ext:jpg,png,jpeg|size:1024" ref="provider">
 
-                <ValidationProvider rules="required|ext:jpg,png,jpeg|size:1024" ref="provider">
+                <b-button variant="outline-primary" @click="$refs.file.click()">
 
-                    <b-button variant="outline-primary" @click="$refs.file.click()">
+                    <input type="file"
+                           ref="file"
+                           v-show="false"
+                           accept="image/png,image/jpeg,image/jpg"
+                           @change="loadImage($event)">
 
-                        <input type="file"
-                               ref="file"
-                               v-show="false"
-                               accept="image/png,image/jpeg,image/jpg"
-                               @change="loadImage($event)">
+                    Select image
 
-                        Select image
+                </b-button>
 
-                    </b-button>
+            </ValidationProvider>
 
-                </ValidationProvider>
+            <b-button variant="secondary" @click="rotate" :disabled="invalid">Rotate</b-button>
 
-                <b-button variant="secondary" @click="rotate" :disabled="invalid">Rotate</b-button>
+            <b-button variant="primary" type="submit" @click="upload" :disabled="invalid">Upload</b-button>
 
-                <b-button variant="primary" type="submit" :disabled="invalid">Upload</b-button>
-
-            </div>
-
-        </form>
+        </div>
 
     </div>
 
@@ -50,17 +46,17 @@
 
     extend('required', {
         ...required,
-        message: 'This field is required'
+        message: 'This field is required.'
     });
 
     extend('ext', {
         ...ext,
-        message: 'The selected file must be an image'
+        message: 'The selected file must be an image.'
     });
 
     extend('size', {
         ...size,
-        message: "The selected image must be less than 1MB"
+        message: "The selected image should not be greater than 1 megabyte."
     });
 
 
@@ -87,7 +83,7 @@
         },
         methods: {
             async loadImage(event) {
-                const {errors, valid, failedRules} = await this.$refs.provider.validate(event);
+                const {errors, valid} = await this.$refs.provider.validate(event);
 
                 if (errors) {
                     this.errorMessages = errors;
@@ -143,11 +139,10 @@
                     axios.post(`${this.user.username}/avatar`, formData)
                         .then(function (response) {
                             this.notify();
-                            // console.log(response);
                         }.bind(this))
                         .catch(function (error) {
-                            console.log(error);
-                        });
+                            this.errorMessages = error.response.data.errors.avatar;
+                        }.bind(this));
                 }, 'image/jpeg')
             },
             notify() {
@@ -156,8 +151,8 @@
                     message: 'Profile photo upload successful',
                     position: 'topRight',
                     closeOnClick: true,
-                    timeout: 3000,
-                    onClosed: () => {
+                    timeout: 1500,
+                    onClosing: () => {
                         location.reload();
                     }
                 });
