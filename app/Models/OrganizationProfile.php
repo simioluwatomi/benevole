@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Profile.
  *
  * @property int                             $id
- * @property int                             $user_id
+ * @property int                             $organization_id
  * @property null|string                     $organization_name
  * @property null|\Illuminate\Support\Carbon $created_at
  * @property null|\Illuminate\Support\Carbon $updated_at
@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationProfile whereOrganizationName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationProfile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationProfile whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationProfile whereOrganizationId($value)
+ *
  * @mixin \Eloquent
  */
 class OrganizationProfile extends Model

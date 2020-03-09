@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserPasswordController;
 use App\Http\Controllers\VolunteerOpportunityController;
@@ -38,3 +39,4 @@ Route::group(['prefix' => 'opportunities'], function () {
 Route::get('/{user}', [UserProfileController::class, 'show'])->name('user.show');
 Route::patch('/{user}', [UserProfileController::class, 'update'])->middleware('auth')->name('user.update');
 Route::patch('/{user}/password', UserPasswordController::class)->middleware('auth', 'verified')->name('password.update');
+Route::post('/{user}/avatar', UserAvatarController::class)->middleware('auth')->name('avatar.store');
