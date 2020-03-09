@@ -2,15 +2,6 @@
 
 @section('content')
 
-    @if (session('message'))
-        <notification-component
-            type="{{ session('message.type') }}"
-            body="{{ session('message.body') }}"
-            :timeout="5000"
-        >
-        </notification-component>
-    @endif
-
     <div class="page-title-box">
 
         <div class="row align-items-center">
@@ -31,7 +22,7 @@
 
                         <b-dropdown id="actions-dropdown" text="Actions" variant="outline-primary" no-flip drop>
 
-                            <b-dropdown-item href="#">
+                            <b-dropdown-item v-b-modal.upload-profile-photo>
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -95,10 +86,10 @@
 
                 <b-card-body body-class="text-center">
 
-                    <img src="https://source.unsplash.com/collection/1112424/200x200"
+                    <img src="{{ $user->avatar_url }}"
                          class="rounded-circle border-wide mx-auto d-block mb-2"
                          width="180"
-                         alt="user-profile-photo">
+                         alt="{{ "{$user->username}'s avatar"  }}">
 
                     <h3>{{ $user->profile->full_name ?? 'Not Available' }} </h3>
 
@@ -215,6 +206,7 @@
                 </b-card-body>
 
             </b-card>
+
 
         </div>
 
@@ -475,6 +467,8 @@
     @push('modal')
 
         @include('partials.modals.edit-user-profile')
+
+        @include('partials.modals.upload-profile-photo')
 
         @can('updatePassword', \App\Models\User::class)
 

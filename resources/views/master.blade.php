@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
-
     </head>
+
     <body class="antialiased">
 
         <div class="page" id="app">
@@ -39,6 +39,14 @@
                 <div class="content-page">
 
                     <main class="container my-4 flex-fill">
+
+                        @if (session('message'))
+                            <notification-component
+                                type="{{ session('message.type') }}"
+                                body="{{ session('message.body') }}"
+                            >
+                            </notification-component>
+                        @endif
 
                         @yield('content')
 
