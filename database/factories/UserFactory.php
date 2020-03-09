@@ -22,7 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'role_id' => function () {
             return factory(Role::class)->create()->id;
         },
-        'username'              => $faker->unique()->firstName,
+        'username'              => strtolower($faker->unique()->firstName),
         'email'                 => $faker->unique()->safeEmail,
         'email_verified_at'     => now(),
         'password'              => bcrypt('password'),

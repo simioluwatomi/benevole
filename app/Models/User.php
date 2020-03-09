@@ -14,23 +14,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int                                                                                                       $role_id
  * @property string                                                                                                    $username
  * @property string                                                                                                    $email
- * @property null|string                                                                                               $telephone
  * @property null|\Illuminate\Support\Carbon                                                                           $email_verified_at
- * @property null|\Illuminate\Support\Carbon                                                                           $telephone_verified_at
+ * @property string                                                                                                    $avatar
  * @property string                                                                                                    $password
  * @property null|string                                                                                               $remember_token
  * @property null|\Illuminate\Support\Carbon                                                                           $created_at
  * @property null|\Illuminate\Support\Carbon                                                                           $updated_at
+ * @property string                                                                                                    $avatar_url
  * @property \Illuminate\Notifications\DatabaseNotification[]|\Illuminate\Notifications\DatabaseNotificationCollection $notifications
  * @property null|int                                                                                                  $notifications_count
  * @property \App\Models\VolunteerOpportunity[]|\Illuminate\Database\Eloquent\Collection                               $opportunities
  * @property null|int                                                                                                  $opportunities_count
+ * @property \App\Models\OrganizationProfile                                                                           $organization
  * @property \App\Models\UserProfile                                                                                   $profile
  * @property \App\Models\Role                                                                                          $role
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
@@ -38,8 +40,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRoleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereTelephone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereTelephoneVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUsername($value)
  * @mixin \Eloquent
@@ -59,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'email_verified_at',
+        'avatar',
     ];
 
     /**
@@ -77,7 +78,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at'     => 'datetime',
-        'telephone_verified_at' => 'datetime',
     ];
 
     /**
@@ -88,6 +88,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    /**
+     * Get the user's avatar url.
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return asset("storage/{$this->avatar}");
     }
 
     /**

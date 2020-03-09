@@ -2,15 +2,6 @@
 
 @section('content')
 
-    @if (session('message'))
-        <notification-component
-            type="{{ session('message.type') }}"
-            body="{{ session('message.body') }}"
-            timeout="5000"
-        >
-        </notification-component>
-    @endif
-
     <div class="page-header d-flex flex-row justify-content-between">
 
         <h1 class="page-title">

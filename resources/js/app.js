@@ -7,12 +7,10 @@
 import "./bootstrap";
 import Vue from "vue";
 import BootstrapVue from 'bootstrap-vue';
-import VueIziToast from 'vue-izitoast';
 
 window.Vue = Vue;
 
 Vue.use(BootstrapVue);
-Vue.use(VueIziToast);
 
 /**
  * The following block of code may be used to automatically register your
