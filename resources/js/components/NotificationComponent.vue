@@ -1,8 +1,5 @@
-<template>
-
-</template>
-
 <script>
+    import iziToast from "izitoast";
 
     export default {
         name: "NotificationComponent",
@@ -10,12 +7,12 @@
             type: {
                 type: String,
                 required: false,
-                default: 'info',
+                default: 'info', // info, success, warning, error, question
             },
             timeout: {
                 type: Number,
                 required: false,
-                default: 0,
+                default: 5000,
             },
             title: {
                 type: String,
@@ -24,19 +21,21 @@
             body: {
                 type: String,
                 required: true,
+            },
+            position: {
+                type: String,
+                required: false,
+                default: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
             }
         },
-        data() {
-            return {
-                notificationOptions: {
-                    timeout: this.timeout,
-                    position: 'topRight',
-                    closeOnClick: true,
-                },
-            }
-        },
-        mounted() {
-            this.$toast[this.type](this.body, this.title, this.notificationOptions);
+        mounted: function () {
+            iziToast[this.type]({
+                title: this.title,
+                message: this.body,
+                position: this.position,
+                closeOnClick: true,
+                timeout: this.timeout,
+            });
         }
     }
 </script>
