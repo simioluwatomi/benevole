@@ -1,3 +1,7 @@
+<template>
+
+</template>
+
 <script>
     import iziToast from "izitoast";
 
@@ -17,6 +21,7 @@
             title: {
                 type: String,
                 required: false,
+                default: '',
             },
             body: {
                 type: String,
