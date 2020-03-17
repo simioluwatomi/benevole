@@ -21,6 +21,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('bio', 200)->nullable();
             $table->string('twitter_username', 64)->nullable();
             $table->string('linkedin_username', 64)->nullable();
+            $table->string('resume')->nullable();
             $table->timestamps();
         });
     }
