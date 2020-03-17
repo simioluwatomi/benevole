@@ -30,7 +30,7 @@
                     <input
                         name="email"
                         id="email"
-                        type="email"
+                        type="text"
                         class="form-control @error('email') is-invalid @enderror"
                         placeholder="Enter email address or username"
                         autocomplete="email"

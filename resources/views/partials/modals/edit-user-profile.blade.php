@@ -217,6 +217,9 @@
 
         </div>
 
+        <div class="hr-text my-5">Resume</div>
+
+        <uppy-component :user="{{ $user }}" :resume-url='@json($user->profile->resume_url)'></uppy-component>
 
         <div class="btn-list float-right my-4">
 

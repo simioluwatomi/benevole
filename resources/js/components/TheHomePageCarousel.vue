@@ -21,9 +21,12 @@
                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
                         porta
                         gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p>
-                        <a class="btn btn-primary" href="#" role="button">Sign up today</a>
-                    </p>
+
+                    <div class="btn-list">
+                        <a class="btn btn-outline-light" href="/register" role="button">Register</a>
+                        <a class="btn btn-outline-primary" href="/login" role="button">Login</a>
+                    </div>
+
                 </div>
 
             </b-carousel-slide>
@@ -51,7 +54,7 @@
                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
                         porta
                         gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-primary" href="#" role="button">Browse gallery</a></p>
+                    <p><a class="btn btn-primary" href="#" role="button">Browse Opportunities</a></p>
                 </div>
 
             </b-carousel-slide>

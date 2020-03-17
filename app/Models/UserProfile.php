@@ -52,6 +52,7 @@ class UserProfile extends Model
         'bio',
         'twitter_username',
         'linkedin_username',
+        'resume',
     ];
 
     /**
@@ -119,13 +120,27 @@ class UserProfile extends Model
     }
 
     /**
-     * Get the user's twitter profile.
+     * Get the user's LinkedIn profile.
      *
      * @return string
      */
     public function getLinkedInProfileAttribute()
     {
         return "https://www.linkedin.com/in/{$this->linkedin_username}";
+    }
+
+    /**
+     * Get the user's resume url.
+     *
+     * @return string
+     */
+    public function getResumeUrlAttribute()
+    {
+        if ($this->resume) {
+            return asset("storage/{$this->resume}");
+        }
+
+        return null;
     }
 
     /**

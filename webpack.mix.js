@@ -14,7 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/index.scss', 'public/css')
     .extract()
-    .browserSync('benevole.test')
+    .browserSync(process.env.APP_URL)
     .disableNotifications()
     .version();
 
