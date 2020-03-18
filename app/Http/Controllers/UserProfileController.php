@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use GuzzleHttp\Client;
 use App\Models\UserProfile;
-use Illuminate\Support\Facades\Cache;
+use App\Services\RestCountriesService;
 use App\Http\Requests\UpdateUserProfileRequest;
 
 class UserProfileController extends Controller
@@ -13,27 +12,16 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param User                 $user
+     * @param RestCountriesService $service
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(User $user)
+    public function show(User $user, RestCountriesService $service)
     {
         $user->load('profile');
 
-        $client = new Client([
-            'base_uri' => 'https://restcountries.eu/rest/v2/all',
-        ]);
-
-        $countries = null;
-
-        if (auth()->user() && auth()->user()->can('update', $user)) {
-            $countries = Cache::remember('countries', 60 * 60 * 24 * 30, function () use ($client) {
-                $response = $client->get('?fields=name');
-
-                return json_decode($response->getBody());
-            });
-        }
+        $countries = $service->filterCountriesByParameter('name');
 
         return view('user.volunteer', compact('user', 'countries'));
     }

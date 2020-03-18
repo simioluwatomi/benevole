@@ -14,10 +14,10 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserAvatarController;
-use App\Http\Controllers\UserOrganizationController;
 use App\Http\Controllers\UserResumeController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserPasswordController;
+use App\Http\Controllers\UserOrganizationController;
 use App\Http\Controllers\VolunteerOpportunityController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -40,7 +40,6 @@ Route::group(['prefix' => 'opportunities'], function () {
 
 Route::get('/volunteer/{user}', [UserProfileController::class, 'show'])->name('volunteer.show');
 Route::get('/organization/{user}', [UserOrganizationController::class, 'show'])->name('organization.show');
-
 
 Route::group(['prefix' => '/{user}'], function () {
     Route::group(['middleware' => 'auth'], function () {

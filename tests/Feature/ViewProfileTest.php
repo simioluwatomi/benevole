@@ -6,6 +6,8 @@ use RoleSeeder;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\RestCountriesService;
+use Tests\Helpers\WorksWithRestCountriesClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -16,6 +18,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ViewProfileTest extends TestCase
 {
     use RefreshDatabase;
+    use WorksWithRestCountriesClient;
 
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
@@ -36,6 +39,9 @@ class ViewProfileTest extends TestCase
 
         $this->volunteer = factory(User::class)->create(['role_id' => Role::whereName('volunteer')->first()->id]);
         $this->organization = factory(User::class)->create(['role_id' => Role::whereName('organization')->first()->id]);
+        $mockHandler = $this->mockRestCountriesClient();
+        app(RestCountriesService::class);
+        $mockHandler->append($this->mockSingleCountryResponse());
     }
 
     /** @test */
