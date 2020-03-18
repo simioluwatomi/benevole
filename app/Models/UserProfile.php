@@ -116,7 +116,7 @@ class UserProfile extends Model
      */
     public function getTwitterProfileAttribute()
     {
-        return "https://twitter.com/{$this->twitter_username}";
+        return isset($this->twitter_username) ? "https://twitter.com/{$this->twitter_username}" : null;
     }
 
     /**
@@ -126,7 +126,7 @@ class UserProfile extends Model
      */
     public function getLinkedInProfileAttribute()
     {
-        return "https://www.linkedin.com/in/{$this->linkedin_username}";
+        return isset($this->linkedin_username) ? "https://www.linkedin.com/in/{$this->linkedin_username}" : null;
     }
 
     /**
@@ -136,11 +136,7 @@ class UserProfile extends Model
      */
     public function getResumeUrlAttribute()
     {
-        if ($this->resume) {
-            return asset("storage/{$this->resume}");
-        }
-
-        return null;
+        return isset($this->resume) ? asset("storage/{$this->resume}") : null;
     }
 
     /**
