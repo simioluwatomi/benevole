@@ -14,9 +14,7 @@ class CreateVolunteerOpportunitiesTable extends Migration
         Schema::create('volunteer_opportunities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->json('requirements');
@@ -25,6 +23,9 @@ class CreateVolunteerOpportunitiesTable extends Migration
             $table->unsignedSmallInteger('max_hours_per_week');
             $table->unsignedSmallInteger('duration');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

@@ -14,7 +14,6 @@ class CreateUserProfilesTable extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('first_name', 64);
             $table->string('last_name', 64);
             $table->string('country', 50);
@@ -23,6 +22,8 @@ class CreateUserProfilesTable extends Migration
             $table->string('linkedin_username', 64)->nullable();
             $table->string('resume')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

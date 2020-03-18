@@ -14,9 +14,14 @@ class CreateOrganizationProfilesTable extends Migration
         Schema::create('organization_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('organization_id');
-            $table->foreign('organization_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('organization_name')->nullable();
+            $table->string('bio', 200)->nullable();
+            $table->string('website')->nullable();
+            $table->string('country', 50)->nullable();
+            $table->string('certificate')->nullable();
             $table->timestamps();
+
+            $table->foreign('organization_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
