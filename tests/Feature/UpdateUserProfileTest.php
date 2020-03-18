@@ -34,13 +34,14 @@ class UpdateUserProfileTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->user = factory(User::class)->create();
+        factory(UserProfile::class)->create(['user_id' => $this->user->id]);
     }
 
     /** @test */
     public function guest_users_can_not_see_form_to_edit_user_profile()
     {
-        $this->get(route('user.show', $this->user))
-            ->assertViewIs('user.show')
+        $this->get(route('volunteer.show', $this->user))
+            ->assertViewIs('user.volunteer')
             ->assertViewHas('user', $this->user)
             ->assertDontSee('Edit Profile');
     }
@@ -50,8 +51,8 @@ class UpdateUserProfileTest extends TestCase
     {
         $this->actingAs(factory(User::class)->create());
 
-        $this->get(route('user.show', $this->user))
-            ->assertViewIs('user.show')
+        $this->get(route('volunteer.show', $this->user))
+            ->assertViewIs('user.volunteer')
             ->assertViewHas('user', $this->user)
             ->assertDontSee('Edit Profile');
     }
@@ -61,8 +62,8 @@ class UpdateUserProfileTest extends TestCase
     {
         $this->actingAs($this->user);
 
-        $this->get(route('user.show', $this->user))
-            ->assertViewIs('user.show')
+        $this->get(route('volunteer.show', $this->user))
+            ->assertViewIs('user.volunteer')
             ->assertViewHas('user', $this->user)
             ->assertSee('Edit Profile');
     }

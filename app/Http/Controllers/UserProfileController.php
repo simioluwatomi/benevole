@@ -35,7 +35,7 @@ class UserProfileController extends Controller
             });
         }
 
-        return view('user.show', compact('user', 'countries'));
+        return view('user.volunteer', compact('user', 'countries'));
     }
 
     /**
@@ -73,7 +73,7 @@ class UserProfileController extends Controller
             $user->sendEmailVerificationNotification();
         }
 
-        return redirect()->route('user.show', $user)->with('message', [
+        return redirect()->route('volunteer.show', $user)->with('message', [
             'type'  => 'success',
             'body'  => 'Profile update successful!',
         ]);

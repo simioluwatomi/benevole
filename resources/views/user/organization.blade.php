@@ -91,7 +91,7 @@
                          width="180"
                          alt="{{ "{$user->username}'s avatar"  }}">
 
-                    <h3>{{ $user->profile->full_name ?? 'Not Available' }} </h3>
+                    <h3>{{ $user->organization->name ?? 'Not Available' }} </h3>
 
                     <ul class="mt-2">
 
@@ -116,7 +116,7 @@
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
 
-                            35 Completed Opportunities
+                            5 Open Opportunities
                         </li>
 
                         <li class="list-unstyled mb-1">
@@ -466,7 +466,7 @@
 
     @push('modal')
 
-        @include('partials.modals.edit-user-profile')
+        @include('partials.modals.edit-organization-profile')
 
         @include('partials.modals.upload-profile-photo')
 
