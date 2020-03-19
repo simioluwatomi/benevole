@@ -15,10 +15,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property null|string                     $bio
  * @property null|string                     $twitter_username
  * @property null|string                     $linkedin_username
+ * @property null|string                     $resume
  * @property null|\Illuminate\Support\Carbon $created_at
  * @property null|\Illuminate\Support\Carbon $updated_at
  * @property string                          $full_name
  * @property string                          $linked_in_profile
+ * @property string                          $resume_url
  * @property string                          $twitter_profile
  * @property \App\Models\User                $user
  *
@@ -32,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereLinkedinUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereResume($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereTwitterUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserProfile whereUserId($value)
@@ -48,10 +51,12 @@ class UserProfile extends Model
         'user_id',
         'first_name',
         'last_name',
+        'organization_name',
         'country',
         'bio',
         'twitter_username',
         'linkedin_username',
+        'website',
         'resume',
     ];
 
@@ -62,7 +67,7 @@ class UserProfile extends Model
      */
     public function setFirstNameAttribute($value)
     {
-        $this->attributes['first_name'] = mb_strtolower($value);
+        $this->attributes['first_name'] = isset($value) ? mb_strtolower($value) : null;
     }
 
     /**
@@ -84,7 +89,7 @@ class UserProfile extends Model
      */
     public function setLastNameAttribute($value)
     {
-        $this->attributes['last_name'] = mb_strtolower($value);
+        $this->attributes['last_name'] = isset($value) ? mb_strtolower($value) : null;
     }
 
     /**
@@ -116,7 +121,7 @@ class UserProfile extends Model
      */
     public function getTwitterProfileAttribute()
     {
-        return "https://twitter.com/{$this->twitter_username}";
+        return isset($this->twitter_username) ? "https://twitter.com/{$this->twitter_username}" : null;
     }
 
     /**
@@ -126,7 +131,7 @@ class UserProfile extends Model
      */
     public function getLinkedInProfileAttribute()
     {
-        return "https://www.linkedin.com/in/{$this->linkedin_username}";
+        return isset($this->linkedin_username) ? "https://www.linkedin.com/in/{$this->linkedin_username}" : null;
     }
 
     /**
@@ -136,11 +141,7 @@ class UserProfile extends Model
      */
     public function getResumeUrlAttribute()
     {
-        if ($this->resume) {
-            return asset("storage/{$this->resume}");
-        }
-
-        return null;
+        return isset($this->resume) ? asset("storage/{$this->resume}") : null;
     }
 
     /**

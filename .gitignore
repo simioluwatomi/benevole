@@ -14,10 +14,10 @@ yarn-error.log
 /public/css/
 /public/js/
 /.env.testing
-/.php_cs.cache
 /.phpstorm.meta.php
 /_ide_helper.php
 /public/fonts/
 /public/images/
 /public/img/
 /public/static
+/storage/.php_cs.cache

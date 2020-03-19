@@ -11,12 +11,20 @@ class UserProfileSeeder extends Seeder
      */
     public function run()
     {
+        $organizations = User::whereHas('role', function ($query) {
+            $query->where('name', 'organization');
+        })->get();
+
+        $organizations->each(function ($org) {
+            factory(UserProfile::class)->state('organization')->create(['user_id' => $org->id]);
+        });
+
         $users = User::whereHas('role', function ($query) {
             $query->where('name', 'volunteer');
         })->get();
 
         $users->each(function ($user) {
-            factory(UserProfile::class)->create(['user_id' => $user->id]);
+            factory(UserProfile::class)->state('volunteer')->create(['user_id' => $user->id]);
         });
     }
 }

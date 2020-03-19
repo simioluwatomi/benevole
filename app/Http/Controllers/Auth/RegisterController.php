@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\OrganizationProfile;
+use App\Models\UserProfile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -70,14 +70,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data['user_type'] == 'volunteer') {
-            return User::create([
-                'role_id'  => Role::whereName($data['user_type'])->first()->id,
-                'username' => $data['username'],
-                'email'    => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
-        }
         $user = User::create([
             'role_id'  => Role::whereName($data['user_type'])->first()->id,
             'username' => $data['username'],
@@ -85,9 +77,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        OrganizationProfile::create([
-            'organization_id'   => $user->id,
-            'organization_name' => $data['organization_name'],
+        UserProfile::create([
+            'user_id'           => $user->id,
+            'organization_name' => $data['organization_name'] ?? null,
         ]);
 
         return $user;

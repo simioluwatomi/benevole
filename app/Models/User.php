@@ -25,7 +25,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property null|int                                                                                                  $notifications_count
  * @property \App\Models\VolunteerOpportunity[]|\Illuminate\Database\Eloquent\Collection                               $opportunities
  * @property null|int                                                                                                  $opportunities_count
- * @property \App\Models\OrganizationProfile                                                                           $organization
  * @property \App\Models\UserProfile                                                                                   $profile
  * @property \App\Models\Role                                                                                          $role
  *
@@ -126,16 +125,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile()
     {
         return $this->hasOne(UserProfile::class, 'user_id');
-    }
-
-    /**
-     * A User has an organization.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function organization()
-    {
-        return $this->hasOne(OrganizationProfile::class, 'organization_id');
     }
 
     /**

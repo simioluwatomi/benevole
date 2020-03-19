@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use GuzzleHttp\Client;
-use App\Models\UserProfile;
-use Illuminate\Support\Facades\Cache;
+use App\Services\RestCountriesService;
 use App\Http\Requests\UpdateUserProfileRequest;
 
 class UserProfileController extends Controller
@@ -13,29 +11,22 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param User                 $user
+     * @param RestCountriesService $service
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(User $user)
+    public function show(User $user, RestCountriesService $service)
     {
-        $user->load('profile');
+        $user->load('profile', 'role');
 
-        $client = new Client([
-            'base_uri' => 'https://restcountries.eu/rest/v2/all',
-        ]);
+        $countries = $service->filterCountriesByParameter('name');
 
-        $countries = null;
-
-        if (auth()->user() && auth()->user()->can('update', $user)) {
-            $countries = Cache::remember('countries', 60 * 60 * 24 * 30, function () use ($client) {
-                $response = $client->get('?fields=name');
-
-                return json_decode($response->getBody());
-            });
+        if ($user->role->name == 'volunteer') {
+            return view('user.volunteer', compact('user', 'countries'));
         }
 
-        return view('user.show', compact('user', 'countries'));
+        return view('user.organization', compact('user', 'countries'));
     }
 
     /**
@@ -49,31 +40,31 @@ class UserProfileController extends Controller
     public function update(UpdateUserProfileRequest $request, User $user)
     {
         $validated = $request->validated();
+
         $user->update([
             'username' => $validated['username'],
             'email'    => $validated['email'],
         ]);
 
-        UserProfile::updateOrCreate(
-            [
-                'user_id' => $user->id,
-            ],
-            [
-                'first_name'        => $validated['first_name'],
-                'last_name'         => $validated['last_name'],
-                'country'           => $validated['country'],
-                'bio'               => $validated['bio'],
-                'twitter_username'  => $validated['twitter_username'],
-                'linkedin_username' => $validated['linkedin_username'],
-            ]
-        );
+        $user->profile->update([
+            'first_name'        => $validated['first_name'] ?? null,
+            'last_name'         => $validated['last_name'] ?? null,
+            'organization_name' => $validated['organization_name'] ?? null,
+            'bio'               => $validated['bio'] ?? null,
+            'twitter_username'  => $validated['twitter_username'] ?? null,
+            'linkedin_username' => $validated['linkedin_username'] ?? null,
+            'country'           => $validated['country'] ?? null,
+            'website'           => $validated['website'] ?? null,
+        ]);
 
         if ($user->wasChanged('email')) {
             $user->update(['email_verified_at' => null]);
             $user->sendEmailVerificationNotification();
         }
 
-        return redirect()->route('user.show', $user)->with('message', [
+        $intended = $user->role->name == 'volunteer' ? 'volunteer.show' : 'organization.show';
+
+        return redirect()->route($intended, $user)->with('message', [
             'type'  => 'success',
             'body'  => 'Profile update successful!',
         ]);

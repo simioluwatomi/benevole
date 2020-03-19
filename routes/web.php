@@ -23,32 +23,28 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 
-Route::group(['prefix' => 'opportunities'], function () {
-    Route::get('/', [VolunteerOpportunityController::class, 'index'])->name('opportunity.index');
+Route::name('opportunity.')->prefix('opportunities')->group(function () {
+    Route::get('/', [VolunteerOpportunityController::class, 'index'])->name('index');
 
-    Route::get('/create', [VolunteerOpportunityController::class, 'create'])
-        ->middleware('auth', 'verified')
-        ->name('opportunity.create');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/create', [VolunteerOpportunityController::class, 'create'])->middleware('verified')->name('create');
+        Route::post('/', [VolunteerOpportunityController::class, 'store'])->name('store');
+    });
 
-    Route::post('/', [VolunteerOpportunityController::class, 'store'])
-        ->middleware('auth')
-        ->name('opportunity.store');
-
-    Route::get('{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('opportunity.show');
+    Route::get('{volunteerOpportunity}', [VolunteerOpportunityController::class, 'show'])->name('show');
 });
 
-Route::group(['prefix' => '/{user}'], function () {
-    Route::get('', [UserProfileController::class, 'show'])->name('user.show');
+Route::get('/volunteer/{volunteer}', [UserProfileController::class, 'show'])->name('volunteer.show');
+Route::get('/organization/{organization}', [UserProfileController::class, 'show'])->name('organization.show');
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::patch('', [UserProfileController::class, 'update'])->name('user.update');
+Route::group(['prefix' => '/{user}', 'middleware' => 'auth'], function () {
+    Route::patch('', [UserProfileController::class, 'update'])->name('user.update');
 
-        Route::patch('/password', UserPasswordController::class)->middleware('verified')->name('password.update');
+    Route::patch('/password', UserPasswordController::class)->middleware('verified')->name('password.update');
 
-        Route::post('/avatar', UserAvatarController::class)->name('avatar.store');
+    Route::post('/avatar', UserAvatarController::class)->name('avatar.store');
 
-        Route::post('/resume', [UserResumeController::class, 'store'])->name('resume.store');
+    Route::post('/resume', [UserResumeController::class, 'store'])->name('resume.store');
 
-        Route::delete('/resume', [UserResumeController::class, 'destroy'])->name('resume.destroy');
-    });
+    Route::delete('/resume', [UserResumeController::class, 'destroy'])->name('resume.destroy');
 });

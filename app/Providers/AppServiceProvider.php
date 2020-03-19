@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -20,10 +20,19 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
+        Route::bind('organization', function ($value) {
+            return User::whereUsername($value)->whereHas('role', function ($query) {
+                $query->where('name', 'organization');
+            })->firstOrFail();
+        });
+
+        Route::bind('volunteer', function ($value) {
+            return User::whereUsername($value)->whereHas('role', function ($query) {
+                $query->where('name', 'volunteer');
+            })->firstOrFail();
+        });
     }
 }

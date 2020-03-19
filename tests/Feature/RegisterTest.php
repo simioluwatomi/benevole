@@ -51,13 +51,18 @@ class RegisterTest extends TestCase
             'user_type'              => 'volunteer',
             'username'               => 'username',
             'email'                  => $this->faker->unique()->safeEmail,
+            'organization_name'      => $this->faker->company,
             'password'               => 'password',
             'password_confirmation'  => 'password',
         ];
 
         $this->post('/register', $form)->assertSessionHas('message');
 
+        $user = User::whereUsername($form['username'])->firstOrFail();
+
         $this->assertDatabaseHas('users', ['username' => $form['username'], 'email' => $form['email']]);
+
+        $this->assertDatabaseHas('user_profiles', ['user_id' => $user->id]);
 
         $this->assertGuest();
     }
@@ -73,26 +78,5 @@ class RegisterTest extends TestCase
         (new SendEmailVerificationNotification())->handle(new Registered($user));
 
         Notification::assertSentTo($user, VerifyEmailQueued::class);
-    }
-
-    /** @test */
-    public function profile_is_created_for_organizations_on_registration()
-    {
-        $this->withoutExceptionHandling();
-
-        $form = [
-            'user_type'              => 'organization',
-            'username'               => 'username',
-            'email'                  => $this->faker->unique()->safeEmail,
-            'organization_name'      => $this->faker->company,
-            'password'               => 'password',
-            'password_confirmation'  => 'password',
-        ];
-
-        $this->post('/register', $form)->assertSessionHas('message');
-
-        $this->assertDatabaseHas('organization_profiles', ['organization_name' => $form['organization_name']]);
-
-        $this->assertGuest();
     }
 }
