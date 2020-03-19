@@ -91,11 +91,11 @@
                          width="180"
                          alt="{{ "{$user->username}'s avatar"  }}">
 
-                    <h3>{{ $user->organization->name ?? 'Not Available' }} </h3>
+                    <h3>{{ $user->profile->organization_name ?? 'Not Available' }} </h3>
 
                     <ul class="mt-2">
 
-                        <li class="list-unstyled mb-1">
+                        <li class="list-unstyled mb-2">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -107,7 +107,7 @@
                             4.5 Stars
                         </li>
 
-                        <li class="list-unstyled mb-1">
+                        <li class="list-unstyled mb-2">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -119,7 +119,7 @@
                             5 Open Opportunities
                         </li>
 
-                        <li class="list-unstyled mb-1">
+                        <li class="list-unstyled mb-2">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -133,7 +133,22 @@
                             Joined {{ $user->created_at->format('F Y') }}
                         </li>
 
-                        <li class="list-unstyled mb-1">
+                        <li class="list-unstyled mb-2">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="icon text-muted">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+
+                            <b-link href="{{ $user->profile->website ?? '#' }}" target="_blank">
+                                {{ $user->profile->website ?? 'Not Available' }}
+                            </b-link>
+
+                        </li>
+
+                        <li class="list-unstyled mb-2">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -142,7 +157,7 @@
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
 
-                            {{ optional($user->profile)->country ?? 'Not Available' }}
+                            {{ $user->profile->country ?? 'Not Available' }}
 
                         </li>
 
@@ -154,54 +169,6 @@
                         {{ optional($user->profile)->bio ?? '' }}
 
                     </p>
-
-                    <ul class="social-links list-inline mb-0 mt-2">
-
-                        @isset($user->profile->linkedin_username)
-
-                            <li class="list-inline-item">
-
-                                <b-link href="{{ $user->profile->linked_in_profile }}" target="_blank"
-                                        v-b-tooltip.hover title="LinkedIn Profile">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="icon">
-                                        <path
-                                            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                        <rect x="2" y="9" width="4" height="12"></rect>
-                                        <circle cx="4" cy="4" r="2"></circle>
-                                    </svg>
-
-                                </b-link>
-
-                            </li>
-
-                        @endisset
-
-                        @isset($user->profile->twitter_username)
-
-                            <li class="list-inline-item">
-
-                                <b-link href="{{ $user->profile->twitter_profile }}" target="_blank"
-                                        v-b-tooltip.hover title="Twitter Profile">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="icon">
-                                        <path
-                                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                                    </svg>
-
-                                </b-link>
-
-                            </li>
-
-                        @endisset
-
-                    </ul>
 
                 </b-card-body>
 

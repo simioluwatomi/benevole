@@ -28,10 +28,12 @@ class UpdateUserProfileRequest extends FormRequest
         return [
             'username'          => ['required', 'alpha_dash', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'email'             => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-            'first_name'        => ['required', 'string', 'max:60', 'not_regex:/\s/'],
-            'last_name'         => ['required', 'string', 'max:60', 'not_regex:/\s/'],
+            'first_name'        => [Rule::requiredIf($this->user()->role->name == 'volunteer'), 'string', 'max:60', 'not_regex:/\s/'],
+            'last_name'         => [Rule::requiredIf($this->user()->role->name == 'volunteer'), 'string', 'max:60', 'not_regex:/\s/'],
             'country'           => ['required', 'string', 'max:48'],
-            'bio'               => ['nullable', 'string', 'max:200'],
+            'organization_name' => [Rule::requiredIf($this->user()->role->name == 'organization'), 'string', 'max:200'],
+            'bio'               => [Rule::requiredIf($this->user()->role->name == 'organization'), 'string', 'max:200'],
+            'website'           => [Rule::requiredIf($this->user()->role->name == 'organization'), 'url'],
             'twitter_username'  => ['nullable', 'string', 'max:60'],
             'linkedin_username' => ['nullable', 'string', 'max:60'],
         ];

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserProfile;
 use App\Services\RestCountriesService;
 use App\Http\Requests\UpdateUserProfileRequest;
 
@@ -19,11 +18,15 @@ class UserProfileController extends Controller
      */
     public function show(User $user, RestCountriesService $service)
     {
-        $user->load('profile');
+        $user->load('profile', 'role');
 
         $countries = $service->filterCountriesByParameter('name');
 
-        return view('user.volunteer', compact('user', 'countries'));
+        if ($user->role->name == 'volunteer') {
+            return view('user.volunteer', compact('user', 'countries'));
+        }
+
+        return view('user.organization', compact('user', 'countries'));
     }
 
     /**
@@ -37,31 +40,31 @@ class UserProfileController extends Controller
     public function update(UpdateUserProfileRequest $request, User $user)
     {
         $validated = $request->validated();
+
         $user->update([
             'username' => $validated['username'],
             'email'    => $validated['email'],
         ]);
 
-        UserProfile::updateOrCreate(
-            [
-                'user_id' => $user->id,
-            ],
-            [
-                'first_name'        => $validated['first_name'],
-                'last_name'         => $validated['last_name'],
-                'country'           => $validated['country'],
-                'bio'               => $validated['bio'],
-                'twitter_username'  => $validated['twitter_username'],
-                'linkedin_username' => $validated['linkedin_username'],
-            ]
-        );
+        $user->profile->update([
+            'first_name'        => $validated['first_name'] ?? null,
+            'last_name'         => $validated['last_name'] ?? null,
+            'organization_name' => $validated['organization_name'] ?? null,
+            'bio'               => $validated['bio'] ?? null,
+            'twitter_username'  => $validated['twitter_username'] ?? null,
+            'linkedin_username' => $validated['linkedin_username'] ?? null,
+            'country'           => $validated['country'] ?? null,
+            'website'           => $validated['website'] ?? null,
+        ]);
 
         if ($user->wasChanged('email')) {
             $user->update(['email_verified_at' => null]);
             $user->sendEmailVerificationNotification();
         }
 
-        return redirect()->route('volunteer.show', $user)->with('message', [
+        $intended = $user->role->name == 'volunteer' ? 'volunteer.show' : 'organization.show';
+
+        return redirect()->route($intended, $user)->with('message', [
             'type'  => 'success',
             'body'  => 'Profile update successful!',
         ]);

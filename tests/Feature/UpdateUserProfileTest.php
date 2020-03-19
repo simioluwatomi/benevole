@@ -2,13 +2,17 @@
 
 namespace Tests\Feature;
 
+use RoleSeeder;
 use Tests\TestCase;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Services\RestCountriesService;
 use App\Notifications\VerifyEmailQueued;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
+use Tests\Helpers\WorksWithRestCountriesClient;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,28 +25,44 @@ class UpdateUserProfileTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+    use WorksWithRestCountriesClient;
 
     /**
-     * @var User
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
      */
-    private $user;
+    private $volunteer;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
+     */
+    private $organization;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->withoutExceptionHandling();
+        $this->seed(RoleSeeder::class);
+        $this->volunteer = factory(User::class)->create(['role_id' => Role::whereName('volunteer')->first()->id]);
+        $this->organization = factory(User::class)->create(['role_id' => Role::whereName('organization')->first()->id]);
+        factory(UserProfile::class)->create(['user_id' => $this->volunteer->id]);
+        factory(UserProfile::class)->create(['user_id' => $this->organization->id]);
 
-        $this->user = factory(User::class)->create();
-        factory(UserProfile::class)->create(['user_id' => $this->user->id]);
+        $mockHandler = $this->mockRestCountriesClient();
+        app(RestCountriesService::class);
+        $mockHandler->append($this->mockSingleCountryResponse());
     }
 
     /** @test */
     public function guest_users_can_not_see_form_to_edit_user_profile()
     {
-        $this->get(route('volunteer.show', $this->user))
+        $this->get(route('volunteer.show', $this->volunteer))
             ->assertViewIs('user.volunteer')
-            ->assertViewHas('user', $this->user)
+            ->assertViewHas('user', $this->volunteer)
+            ->assertDontSee('Edit Profile');
+
+        $this->get(route('organization.show', $this->organization))
+            ->assertViewIs('user.organization')
+            ->assertViewHas('user', $this->organization)
             ->assertDontSee('Edit Profile');
     }
 
@@ -51,20 +71,36 @@ class UpdateUserProfileTest extends TestCase
     {
         $this->actingAs(factory(User::class)->create());
 
-        $this->get(route('volunteer.show', $this->user))
+        $this->get(route('volunteer.show', $this->volunteer))
             ->assertViewIs('user.volunteer')
-            ->assertViewHas('user', $this->user)
+            ->assertViewHas('user', $this->volunteer)
+            ->assertDontSee('Edit Profile');
+
+        $this->get(route('organization.show', $this->organization))
+            ->assertViewIs('user.organization')
+            ->assertViewHas('user', $this->organization)
             ->assertDontSee('Edit Profile');
     }
 
     /** @test */
-    public function auth_users_can_see_form_to_edit_their_profile()
+    public function auth_volunteers_can_see_form_to_edit_their_profile()
     {
-        $this->actingAs($this->user);
+        $this->actingAs($this->volunteer);
 
-        $this->get(route('volunteer.show', $this->user))
+        $this->get(route('volunteer.show', $this->volunteer))
             ->assertViewIs('user.volunteer')
-            ->assertViewHas('user', $this->user)
+            ->assertViewHas('user', $this->volunteer)
+            ->assertSee('Edit Profile');
+    }
+
+    /** @test */
+    public function auth_organizations_can_see_form_to_edit_their_profile()
+    {
+        $this->actingAs($this->organization);
+
+        $this->get(route('organization.show', $this->organization))
+            ->assertViewIs('user.organization')
+            ->assertViewHas('user', $this->organization)
             ->assertSee('Edit Profile');
     }
 
@@ -75,7 +111,7 @@ class UpdateUserProfileTest extends TestCase
 
         $this->expectException(AuthenticationException::class);
 
-        $this->patch(route('user.update', $this->user));
+        $this->patch(route('user.update', $this->volunteer));
     }
 
     /** @test */
@@ -87,30 +123,32 @@ class UpdateUserProfileTest extends TestCase
 
         $this->expectException(AuthorizationException::class);
 
-        $this->patch(route('user.update', $this->user));
+        $this->patch(route('user.update', $this->volunteer));
     }
 
     /** @test */
-    public function auth_users_can_update_their_profile()
+    public function auth_volunteers_can_update_their_profile()
     {
         $form = factory(UserProfile::class)->make()->toArray();
 
         $form = array_merge($form, [
             'username' => $this->faker->lastName,
-            'email'    => $this->user->email,
+            'email'    => $this->volunteer->email,
         ]);
 
-        $this->actingAs($this->user);
+        $this->actingAs($this->volunteer);
 
-        $this->patch(route('user.update', $this->user), $form);
+        $this->patch(route('user.update', $this->volunteer), $form);
 
-        $this->assertEquals($this->user->fresh()->username, $form['username']);
+        $this->assertEquals($this->volunteer->fresh()->username, $form['username']);
         $this->assertDatabaseHas('user_profiles', [
-            'user_id'           => $this->user->id,
+            'user_id'           => $this->volunteer->id,
             'first_name'        => toLowerCase($form['first_name']),
             'last_name'         => toLowerCase($form['last_name']),
             'country'           => $form['country'],
             'bio'               => $form['bio'],
+            'organization_name' => $form['organization_name'],
+            'website'           => $form['website'],
             'twitter_username'  => $form['twitter_username'],
             'linkedin_username' => $form['linkedin_username'],
         ]);
@@ -123,16 +161,16 @@ class UpdateUserProfileTest extends TestCase
         $form = factory(UserProfile::class)->make()->toArray();
 
         $form = array_merge($form, [
-            'username' => $this->user->username,
+            'username' => $this->volunteer->username,
             'email'    => $this->faker->safeEmail,
         ]);
 
-        $this->actingAs($this->user);
+        $this->actingAs($this->volunteer);
 
-        $this->patch(route('user.update', $this->user), $form);
+        $this->patch(route('user.update', $this->volunteer), $form);
 
-        $this->assertEquals($this->user->fresh()->email, $form['email']);
-        $this->assertEquals($this->user->fresh()->email_verified_at, null);
-        Notification::assertSentTo($this->user, VerifyEmailQueued::class);
+        $this->assertEquals($this->volunteer->fresh()->email, $form['email']);
+        $this->assertEquals($this->volunteer->fresh()->email_verified_at, null);
+        Notification::assertSentTo($this->volunteer, VerifyEmailQueued::class);
     }
 }
